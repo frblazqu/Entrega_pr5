@@ -211,12 +211,12 @@ public class Junction extends SimulatedObject {
 		out.put("Green", estadoVerde());
 		out.put("Red", estadoRojo());
 	}
-	private String estadoVerde() {
+	public String estadoVerde() {
 		String aux = "";
 		aux += "[";
 		if (semaforo != -1) {
 			aux += "(" + incomingRoadIds.get(semaforo) + ",green," + "["
-					+ vehiculosCola(semaforo) + ")]";
+					+ vehiculosCola(semaforo)  + "])]";
 		}
 		aux += "]";
 
