@@ -297,8 +297,10 @@ public class ExampleMain {
 				
 			@Override
 			public void error(UpdateEvent ue, String error) {
-				// TODO Auto-generated method stub
-				
+				System.err.println("Ha fallado la simulación con características:\n" + "-> tiempo: " + _timeLimit
+			+ "\n" + "-> fichero de entrada: " + _inFile + "\n"
+			+ "-> fichero de salida: " + _outFile + "\n" + "Motivo:\n" +
+			error);
 			}
 				
 			@Override
@@ -372,7 +374,7 @@ public class ExampleMain {
 		//test(DEFAULT_READ_DIRECTORY + "examples/advanced/");
 
 		// Call start to start the simulator from command line, etc.
-		//start(args);
+		start(args);
 	}
 
 	// MÉTODOS QUE SOLO DEBEN SER USADOS PARA EL TESTEO

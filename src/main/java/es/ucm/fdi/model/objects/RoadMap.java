@@ -147,10 +147,10 @@ public class RoadMap {
 			}
 
 			throw new IllegalArgumentException("No hay conexión entre el los cruces "
-					+ junctionIniId + " y " + junctionFinId);
+					+ junctionIniId + " y " + junctionFinId + '.');
 		} else
 			throw new IllegalArgumentException(
-					"El cruce " + junctionIniId + " no existe o no está comunicado");
+					"El cruce " + junctionIniId + " no existe o no está comunicado.");
 	}
 	/* Peta al construir carreteras si lo quitas */
 	public boolean validJuctionsForRoad(String idIni, String idDest) {
@@ -159,11 +159,11 @@ public class RoadMap {
 
 		else if (getJunction(idIni) == null)
 			throw new IllegalArgumentException(
-					"The map doesn´t contain a junction with the id " + idIni);
+					"No existe un cruce con el id " + idIni + '.');
 
 		else
 			throw new IllegalArgumentException(
-					"The map doesn´t contain a junction with the id " + idDest);
+					"No existe un cruce con el id " + idDest + '.');
 	}
 	public Map<String, List<ConexionCruces>> getConectionMap() {
 		return connectedJunctions;
