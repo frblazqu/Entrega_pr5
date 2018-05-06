@@ -18,9 +18,9 @@ public class NewBike extends NewVehicle {
 						this.getItinerary()[i]) == null) {
 					validIds = false;
 					throw new IllegalArgumentException(
-							"There is no road that connects the specified junctions "
-									+ this.getItinerary()[i - 1] + " and "
-									+ this.getItinerary()[i] + " for the itinerary.");
+							"No hay ninguna carretera que conecte los cruces "
+									+ this.getItinerary()[i - 1] + " y "
+									+ this.getItinerary()[i] + " para el itinerario.");
 				}
 			}
 			if (validIds) {

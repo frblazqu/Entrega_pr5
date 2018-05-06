@@ -85,7 +85,7 @@ public class Controller {
 		this(loadFilePath, saveFilePath, DEFAULT_TICKS);
 	}
 
-	public Controller(String loadFilePath, int numTicks) {
+	public Controller(String loadFilePath, int numTicks) throws Exception {
 		try {
 			inputPath = loadFilePath;
 			if(!loadFilePath.equals(DEFAULT_READ_DIRECTORY + DEFAULT_INI_FILE)) {
@@ -95,7 +95,7 @@ public class Controller {
 			simulador = new TrafficSimulator();
 			ticksSimulacion = numTicks;
 		} catch (Exception e) {
-			System.err.println("Error al crear el controlador");
+			throw new Exception("Error al crear el controlador");
 		}
 	}
 

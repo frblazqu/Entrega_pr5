@@ -15,7 +15,7 @@ public class StringParser {
 				return time;
 			} else {
 				throw new IllegalArgumentException(
-						"The value " + time + " is not valid.");
+						"El valor " + time + " no es válido.");
 			}
 		}
 	}
@@ -45,12 +45,12 @@ public class StringParser {
 	public static String parseId(String value) {
 		if (value == null) {
 			throw new IllegalArgumentException(
-					"The id atribute is missing in the IniSection.");
+					"Falta el id en la IniSection.");
 		} else {
 			if (isValidId(value)) {
 				return value;
 			} else {
-				throw new IllegalArgumentException("The id " + value + " is not valid.");
+				throw new IllegalArgumentException("El id " + value + " no es válido.");
 			}
 		}
 	}
@@ -64,13 +64,13 @@ public class StringParser {
 	public static String[] parseIdList(String value) throws IllegalArgumentException {
 		if (value == null) {
 			throw new IllegalArgumentException(
-					"The iniSection is missing a list atribute");
+					"Falta un atributo de lista en la IniSection");
 		} else {
 			String[] ids = value.split("\\,");
 			for (int i = 0; i < ids.length; ++i) {
 				if (!isValidId(ids[i])) {
 					throw new IllegalArgumentException(
-							"The id " + ids[i] + " is not valid.");
+							"El id " + ids[i] + " no es válido.");
 				}
 			}
 			return ids;
@@ -84,12 +84,12 @@ public class StringParser {
 	 */
 	public static int parseIntValue(String value) throws IllegalArgumentException {
 		if (value == null) {
-			throw new IllegalArgumentException("There is a missing int value.");
+			throw new IllegalArgumentException("Falta un valor entero.");
 		} else {
 			int val = Integer.parseInt(value);
 			if (val < 0) {
 				throw new IllegalArgumentException(
-						"The value " + value + " is not valid.");
+						"El valor entero " + value + " no es válido.");
 			} else {
 				return val;
 			}
@@ -105,12 +105,12 @@ public class StringParser {
 	public static double parseDoubleValue(String value) throws IllegalArgumentException {
 		if (value == null) {
 			throw new IllegalArgumentException(
-					"There is a missing double value in the IniSection");
+					"Falta un valor double en la IniSection");
 		} else {
 			double val = Double.parseDouble(value);
 			if (val < 0 || val > 1) {
 				throw new IllegalArgumentException(
-						"The value " + value + " is not valid.");
+						"El valor " + value + " no es válido.");
 			} else {
 				return val;
 			}

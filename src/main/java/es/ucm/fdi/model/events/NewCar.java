@@ -78,9 +78,9 @@ public class NewCar extends NewVehicle {
 						this.getItinerary()[i]) == null) {
 					validIds = false;
 					throw new IllegalArgumentException(
-							"There is no road that connects the specified junctions "
-									+ this.getItinerary()[i - 1] + " and "
-									+ this.getItinerary()[i] + " for the itinerary.");
+							"No hay ninguna carretera que conecte los cruces "
+									+ this.getItinerary()[i - 1] + " y "
+									+ this.getItinerary()[i] + " para el itinerario.");
 				}
 			}
 			if (validIds) {
@@ -91,7 +91,7 @@ public class NewCar extends NewVehicle {
 			}
 		} else {
 			throw new IllegalArgumentException(
-					"The id " + this.getId() + " is already used");
+					"Ya existe un objeto con el id " + this.getId() + '.');
 		}
 	}
 }

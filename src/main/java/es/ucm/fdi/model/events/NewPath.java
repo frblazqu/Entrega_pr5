@@ -50,11 +50,11 @@ public class NewPath extends NewRoad {
 				}
 			} catch (IllegalArgumentException e) {
 				throw new IllegalArgumentException(
-						"There is something wrong with the junctions specified for the road",
+						"Algo ha fallado con los cruces especificados.\n" + e.getMessage(),
 						e);
 			}
 		} else {
-			throw new IllegalArgumentException("The id " + road_id + " is already used");
+			throw new IllegalArgumentException("Ya existe un objeto con el id " + road_id + '.');
 		}
 	}
 }

@@ -43,7 +43,7 @@ public class NewVehicle extends Event {
 	public void execute(RoadMap map) throws IllegalArgumentException {
 		if (map.duplicatedId(vehicleId))
 			throw new IllegalArgumentException(
-					"The id " + vehicleId + " is already used");
+					"Ya existe un objeto con el id " + vehicleId + + '.');
 
 		// Si estamos aquí es porque el identificador del vehículo es válido
 
@@ -54,9 +54,9 @@ public class NewVehicle extends Event {
 
 			if (road == null)
 				throw new IllegalArgumentException(
-						"There is no road that connects the specified junctions "
-								+ itinerary[i - 1] + " and " + itinerary[i]
-								+ " for the itinerary.");
+						"No existe una carretera que una los cruces especificados "
+								+ itinerary[i - 1] + " y " + itinerary[i]
+								+ " para el itinerario.");
 			else
 				itinerario.add(road);
 		}

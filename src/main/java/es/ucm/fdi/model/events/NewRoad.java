@@ -37,7 +37,7 @@ public class NewRoad extends Event {
 
 	public void execute(RoadMap map) throws IllegalArgumentException {
 		if (map.duplicatedId(road_id))
-			throw new IllegalArgumentException("The id " + road_id + " is already used");
+			throw new IllegalArgumentException("Ya existe un objeto con el id " + road_id + '.');
 
 		try {
 			// Si los ids son de cruces existentes...
@@ -64,11 +64,11 @@ public class NewRoad extends Event {
 				}
 			} else
 				throw new IllegalArgumentException(
-						"There is something wrong with the junctions specified for the road");
+						"Algo ha fallado con los cruces especificados.");
 
 		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(
-					"There is something wrong with the junctions specified for the road",
+					"Algo ha fallado con los cruces especificados.\n" + e.getMessage(),
 					e);
 		}
 	}
@@ -97,7 +97,7 @@ public class NewRoad extends Event {
 						return null;
 				} catch (IllegalArgumentException e) {
 					throw new IllegalArgumentException(
-							"There is something wrong with one of the atributes.", e);
+							"Algo ha fallado con los atributos.\n" + e.getMessage() , e);
 				}
 			}
 		}

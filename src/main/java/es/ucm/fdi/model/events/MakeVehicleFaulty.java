@@ -35,7 +35,7 @@ public class MakeVehicleFaulty extends Event {
 			}
 		} else {
 			throw new IllegalArgumentException(
-					"There is no vehicle with the specified id");
+					"No hay ningún vehículo con la id " + vehicleId + '.');
 		}
 	}
 	public static class NewVehicleFaulty implements EventBuilder {
@@ -50,7 +50,7 @@ public class MakeVehicleFaulty extends Event {
 					return new MakeVehicleFaulty(tm, dur, vehic);
 				} catch (IllegalArgumentException e) {
 					throw new IllegalArgumentException(
-							"There is something wrong with one of the atributes.", e);
+							"Algo ha fallado con alguno de los atributos.\n" + e.getMessage(), e);
 				}
 			}
 		}
