@@ -128,7 +128,7 @@ public class RoundJunction
 		aux += "[";
 		if (semaforo != -1) {
 			aux += "(" + incomingRoadIds.get(semaforo) + ",green" + fillColaDetails()
-					+ ',' + "[" + vehiculosCola(semaforo) + "])]";
+					+ ',' + "[" + vehiculosCola(semaforo) + "])";
 		}
 		aux += "]";
 
