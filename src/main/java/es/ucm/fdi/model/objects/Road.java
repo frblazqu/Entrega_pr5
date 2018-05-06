@@ -191,10 +191,10 @@ public class Road extends SimulatedObject {
 		StringBuilder aux = new StringBuilder();
 
 		for (Vehicle v : vehiculos.innerValues())
-			aux.append( ('(' + v.getId() + ',' + v.getLocalizacion() + "),"));
-		
+			aux.append(('(' + v.getId() + ',' + v.getLocalizacion() + "),"));
+
 		String pal = aux.toString();
-		
+
 		if (pal.length() != 0)
 			pal = pal.substring(0, pal.length() - 1);
 

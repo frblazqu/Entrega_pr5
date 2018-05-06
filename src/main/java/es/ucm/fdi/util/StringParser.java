@@ -14,8 +14,7 @@ public class StringParser {
 			if (time >= 0) {
 				return time;
 			} else {
-				throw new IllegalArgumentException(
-						"El valor " + time + " no es válido.");
+				throw new IllegalArgumentException("El valor " + time + " no es válido.");
 			}
 		}
 	}
@@ -44,8 +43,7 @@ public class StringParser {
 	 */
 	public static String parseId(String value) {
 		if (value == null) {
-			throw new IllegalArgumentException(
-					"Falta el id en la IniSection.");
+			throw new IllegalArgumentException("Falta el id en la IniSection.");
 		} else {
 			if (isValidId(value)) {
 				return value;
@@ -104,8 +102,7 @@ public class StringParser {
 	 */
 	public static double parseDoubleValue(String value) throws IllegalArgumentException {
 		if (value == null) {
-			throw new IllegalArgumentException(
-					"Falta un valor double en la IniSection");
+			throw new IllegalArgumentException("Falta un valor double en la IniSection");
 		} else {
 			double val = Double.parseDouble(value);
 			if (val < 0 || val > 1) {

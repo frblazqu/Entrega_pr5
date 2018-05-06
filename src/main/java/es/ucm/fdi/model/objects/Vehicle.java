@@ -242,7 +242,7 @@ public class Vehicle extends SimulatedObject {
 	 */
 	public void fillReportDetails(Map<String, String> camposValor) {
 		camposValor.put("speed", "" + velActual);
-		camposValor.put("kilometrage", ""  + kilometrage);
+		camposValor.put("kilometrage", "" + kilometrage);
 		camposValor.put("faulty", "" + tiempoAveria);
 		camposValor.put("location", localizacionString());
 	}

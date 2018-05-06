@@ -177,16 +177,16 @@ public class Junction extends SimulatedObject {
 		StringBuilder cola = new StringBuilder();
 
 		for (int i = 0; i < incomingRoadIds.size(); i++) {
-			cola.append( ("(" + incomingRoadIds.get(i) + ","
+			cola.append(("(" + incomingRoadIds.get(i) + ","
 					+ (i == semaforo ? "green" + fillColaDetails() : "red") + ",["
 					+ vehiculosCola(i) + "]),"));
 		}
 
 		String aux = cola.toString();
-		
+
 		if (aux.length() > 0)
 			aux = aux.substring(0, aux.length() - 1); // Eliminamos la ',' final
-															
+
 		return aux;
 	}
 	protected String fillColaDetails() {
@@ -221,7 +221,7 @@ public class Junction extends SimulatedObject {
 		aux += "[";
 		if (semaforo != -1) {
 			aux += "(" + incomingRoadIds.get(semaforo) + ",green," + "["
-					+ vehiculosCola(semaforo)  + "])";
+					+ vehiculosCola(semaforo) + "])";
 		}
 		aux += "]";
 

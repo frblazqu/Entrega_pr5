@@ -97,15 +97,14 @@ public class CrowedJunction
 	protected String fillColaDetails() {
 		return ":" + (limiteDeTiempo - tiempoConsumido);
 	}
-	
+
 	@Override
 	public String estadoVerde() {
 		String aux = "";
 		aux += "[";
 		if (semaforo != -1) {
-			aux += "(" + incomingRoadIds.get(semaforo) + ",green" 
-					+ fillColaDetails() + ',' + "["
-					+ vehiculosCola(semaforo)  + "])";
+			aux += "(" + incomingRoadIds.get(semaforo) + ",green" + fillColaDetails()
+					+ ',' + "[" + vehiculosCola(semaforo) + "])";
 		}
 		aux += "]";
 

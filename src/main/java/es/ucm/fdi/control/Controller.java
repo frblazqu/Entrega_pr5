@@ -89,7 +89,7 @@ public class Controller {
 	public Controller(String loadFilePath, int numTicks) throws Exception {
 		try {
 			inputPath = loadFilePath;
-			if(!loadFilePath.equals(DEFAULT_READ_DIRECTORY + DEFAULT_INI_FILE)) {
+			if (!loadFilePath.equals(DEFAULT_READ_DIRECTORY + DEFAULT_INI_FILE)) {
 				inputStream = new FileInputStream(new File(loadFilePath));
 			}
 			outputStream = null;

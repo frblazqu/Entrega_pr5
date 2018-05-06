@@ -267,47 +267,48 @@ public class ExampleMain {
 	 *             If the simulation ended abruptly to notice the cause.
 	 */
 	private static void startBatchMode() throws SimulationFailedException {
-		
+
 		Controller controller = new Controller(_inFile, _outFile, _timeLimit);
 		controller.simulador().addSimulatorListener(new TrafficSimulator.Listener() {
-				
+
 			@Override
 			public void update(UpdateEvent ue, String error) {
-				switch (ue.getType()) {					
+				switch (ue.getType()) {
 					case ERROR :
 						error(ue, error);
 						break;
 					case REGISTERED :
 						registered(ue);
 						break;
-				}			
-			}				
+				}
+			}
 			@Override
 			public void reset(UpdateEvent ue) {
 			}
-			
+
 			@Override
 			public void registered(UpdateEvent ue) {
 				controller.leerDatosSimulacion();
 				controller.run();
 			}
-				
+
 			@Override
-			public void newEvent(UpdateEvent ue) {				}
-				
+			public void newEvent(UpdateEvent ue) {
+			}
+
 			@Override
 			public void error(UpdateEvent ue, String error) {
-				System.err.println("Ha fallado la simulación con características:\n" + "-> tiempo: " + _timeLimit
-			+ "\n" + "-> fichero de entrada: " + _inFile + "\n"
-			+ "-> fichero de salida: " + _outFile + "\n" + "Motivo:\n" +
-			error);
+				System.err.println("Ha fallado la simulación con características:\n"
+						+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
+						+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
+						+ "Motivo:\n" + error);
 			}
-				
+
 			@Override
-			public void advanced(UpdateEvent ue) {	
+			public void advanced(UpdateEvent ue) {
 			}
 		});
-	
+
 	}
 	/**
 	 * Run the simulator in GUI mode.
@@ -320,10 +321,10 @@ public class ExampleMain {
 			Controller controller = new Controller(_inFile, _timeLimit);
 			SwingUtilities.invokeLater(() -> new SimWindow(controller));
 		} catch (Exception e) {
-			System.err.println("Ha fallado la simulación con características:\n" + "-> tiempo: " + _timeLimit
-			+ "\n" + "-> fichero de entrada: " + _inFile + "\n"
-			+ "-> fichero de salida: " + _outFile + "\n" + "Motivo:\n"
-			+ e.getMessage());
+			System.err.println("Ha fallado la simulación con características:\n"
+					+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
+					+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
+					+ "Motivo:\n" + e.getMessage());
 
 			/*
 			 * Construye una excepción en la que pone: Mira con estos parámetros
@@ -370,8 +371,8 @@ public class ExampleMain {
 		// Call test in order to test the simulator on all examples in a
 		// directory.
 		//
-		//test(DEFAULT_READ_DIRECTORY + "examples/basic/");
-		//test(DEFAULT_READ_DIRECTORY + "examples/advanced/");
+		// test(DEFAULT_READ_DIRECTORY + "examples/basic/");
+		// test(DEFAULT_READ_DIRECTORY + "examples/advanced/");
 
 		// Call start to start the simulator from command line, etc.
 		start(args);
