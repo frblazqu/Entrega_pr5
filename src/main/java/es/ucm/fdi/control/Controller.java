@@ -109,7 +109,7 @@ public class Controller {
 	 * @throws IOException
 	 *             Si no se consigue leer correctamente el fichero de entrada.
 	 * @throws IllegalArgumentException
-	 *             Si alguna sección no se consigue parsear bien
+	 *             Si alguna sección no se consigue parsear bien.
 	 */
 	public void leerDatosSimulacion() {
 		try {
