@@ -19,7 +19,7 @@ public class SimulatorAction extends AbstractAction {
 
 	/**
 	 * Creates an action for use in buttons, toolbar-buttons, and menus of all
-	 * stripes.
+	 * stripes
 	 * 
 	 * @param name
 	 *            to use in menus (via toString), and as identifier when
