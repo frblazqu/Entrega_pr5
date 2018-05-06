@@ -10,4 +10,4 @@ public interface Describable {
 	 */
 	void describe(Map<String, String> out);
 
-}
+}//Describable
