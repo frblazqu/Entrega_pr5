@@ -372,7 +372,7 @@ public class ExampleMain {
 		//test(DEFAULT_READ_DIRECTORY + "examples/advanced/");
 
 		// Call start to start the simulator from command line, etc.
-		//start(args);
+		// start(args);
 	}
 
 	// MÉTODOS QUE SOLO DEBEN SER USADOS PARA EL TESTEO
