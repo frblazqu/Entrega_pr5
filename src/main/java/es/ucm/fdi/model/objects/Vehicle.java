@@ -241,9 +241,9 @@ public class Vehicle extends SimulatedObject {
 	 *            Mapa en el que completar los datos.
 	 */
 	public void fillReportDetails(Map<String, String> camposValor) {
-		camposValor.put("speed", Integer.toString(velActual));
-		camposValor.put("kilometrage", Integer.toString(kilometrage));
-		camposValor.put("faulty", Integer.toString(tiempoAveria));
+		camposValor.put("speed", "" + velActual);
+		camposValor.put("kilometrage", ""  + kilometrage);
+		camposValor.put("faulty", "" + tiempoAveria);
 		camposValor.put("location", localizacionString());
 	}
 	/**
@@ -266,7 +266,7 @@ public class Vehicle extends SimulatedObject {
 		out.put("Location", "" + location());
 		out.put("Speed", "" + velActual);
 		out.put("Km", "" + kilometrage);
-		out.put("Faulty units", "" + tiempoAveria);
+		out.put("Faulty Units", "" + tiempoAveria);
 		out.put("Itinerary", itineraryDesc());
 	}
 	private String itineraryDesc() {

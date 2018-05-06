@@ -2,6 +2,7 @@ package es.ucm.fdi.model.objects;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import es.ucm.fdi.ini.IniSection;
 
 /**
@@ -117,6 +118,19 @@ public class RoundJunction
 	protected String fillColaDetails() {
 		return ":"
 				+ (intervalosVerde.get(incomingRoadIds.get(semaforo)) - tiempoConsumido);
+	}
+	@Override
+	public String estadoVerde() {
+		String aux = "";
+		aux += "[";
+		if (semaforo != -1) {
+			aux += "(" + incomingRoadIds.get(semaforo) + ",green"
+					+ fillColaDetails() + ',' + "["
+					+ vehiculosCola(semaforo)  + "])]";
+		}
+		aux += "]";
+
+		return aux;
 	}
 
 }// RoundJunction

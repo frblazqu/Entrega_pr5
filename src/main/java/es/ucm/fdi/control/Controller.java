@@ -88,7 +88,9 @@ public class Controller {
 	public Controller(String loadFilePath, int numTicks) {
 		try {
 			inputPath = loadFilePath;
-			inputStream = new FileInputStream(new File(loadFilePath));
+			if(!loadFilePath.equals(DEFAULT_READ_DIRECTORY + DEFAULT_INI_FILE)) {
+				inputStream = new FileInputStream(new File(loadFilePath));
+			}
 			outputStream = null;
 			simulador = new TrafficSimulator();
 			ticksSimulacion = numTicks;
