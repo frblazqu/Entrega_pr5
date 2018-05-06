@@ -22,7 +22,7 @@ public class Junction extends SimulatedObject {
 														// esperando
 	protected List<String> incomingRoadIds; // Ids de las carreteras entrantes,
 											// para acceder rápido con el
-											// semáforo
+											// semáforo.
 	protected int semaforo; // Índice dentro de IncomingRoads de la que tiene el
 							// semáforo verde
 	protected int numCarreterasEntrantes; // Número de carreteras que entran a
