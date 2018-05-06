@@ -188,15 +188,17 @@ public class Road extends SimulatedObject {
 	 *         reports.
 	 */
 	protected String vehiclesInRoad() {
-		String aux = "";
+		StringBuilder aux = new StringBuilder();
 
 		for (Vehicle v : vehiculos.innerValues())
-			aux += '(' + v.getId() + ',' + v.getLocalizacion() + "),";
+			aux.append( ('(' + v.getId() + ',' + v.getLocalizacion() + "),"));
+		
+		String pal = aux.toString();
+		
+		if (pal.length() != 0)
+			pal = pal.substring(0, pal.length() - 1);
 
-		if (aux.length() != 0)
-			aux = aux.substring(0, aux.length() - 1);
-
-		return aux;
+		return pal;
 	}
 	public void describe(Map<String, String> out) {
 		super.describe(out);;

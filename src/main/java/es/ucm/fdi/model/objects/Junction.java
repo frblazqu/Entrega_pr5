@@ -74,11 +74,15 @@ public class Junction extends SimulatedObject {
 
 			if (colaEnVerde() != null && colaEnVerde().size() > 0) {
 				colaEnVerde().pop().moverASiguienteCarretera();
+				haPasadoVehiculo();
 			}
 
 			// Actualizar el semáforo si procede
 			avanzarSemaforo();
 		}
+	}
+	protected void haPasadoVehiculo() {
+		;
 	}
 	/**
 	 * Establece por primera vez permiso de circulación a una de las carreteras
@@ -170,19 +174,20 @@ public class Junction extends SimulatedObject {
 	 *         visualiza en los informes.
 	 */
 	protected String colaCruce() {
-		String cola = "";
+		StringBuilder cola = new StringBuilder();
 
 		for (int i = 0; i < incomingRoadIds.size(); i++) {
-			cola += "(" + incomingRoadIds.get(i) + ","
+			cola.append( ("(" + incomingRoadIds.get(i) + ","
 					+ (i == semaforo ? "green" + fillColaDetails() : "red") + ",["
-					+ vehiculosCola(i) + "]),";
+					+ vehiculosCola(i) + "]),"));
 		}
 
-		if (cola.length() > 0)
-			cola = cola.substring(0, cola.length() - 1); // Eliminamos la ','
-															// final
-
-		return cola;
+		String aux = cola.toString();
+		
+		if (aux.length() > 0)
+			aux = aux.substring(0, aux.length() - 1); // Eliminamos la ',' final
+															
+		return aux;
 	}
 	protected String fillColaDetails() {
 		return "";
