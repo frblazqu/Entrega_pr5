@@ -74,11 +74,15 @@ public class Junction extends SimulatedObject {
 
 			if (colaEnVerde() != null && colaEnVerde().size() > 0) {
 				colaEnVerde().pop().moverASiguienteCarretera();
+				haPasadoVehiculo();
 			}
 
 			// Actualizar el semáforo si procede
 			avanzarSemaforo();
 		}
+	}
+	protected void haPasadoVehiculo() {
+		;
 	}
 	/**
 	 * Establece por primera vez permiso de circulación a una de las carreteras

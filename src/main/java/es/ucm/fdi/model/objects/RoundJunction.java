@@ -87,6 +87,9 @@ public class RoundJunction
 			tiempoConsumido = 0;
 		}
 	}
+	protected void haPasadoVehiculo() {
+		ticksPasaVehiculo++;
+	}
 	private void actualizaIntervaloTiempo() {
 		int nuevoTiempo = intervalosVerde.get(incomingRoadIds.get(semaforo));
 
@@ -124,9 +127,8 @@ public class RoundJunction
 		String aux = "";
 		aux += "[";
 		if (semaforo != -1) {
-			aux += "(" + incomingRoadIds.get(semaforo) + ",green"
-					+ fillColaDetails() + ',' + "["
-					+ vehiculosCola(semaforo)  + "])]";
+			aux += "(" + incomingRoadIds.get(semaforo) + ",green" + fillColaDetails()
+					+ ',' + "[" + vehiculosCola(semaforo) + "])]";
 		}
 		aux += "]";
 
