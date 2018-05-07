@@ -194,4 +194,8 @@ public class TextEditor extends JPanel {
 	public InputStream flujoLectura() {
 		return new ByteArrayInputStream(textArea.getText().getBytes());
 	}
+	
+	public void setEnabled(boolean enabled) {
+		textArea.setEnabled(enabled);
+	}
 }

@@ -48,6 +48,9 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 
 	Controller control;
 
+	private Action[] disabledWhileSimulatingActions;
+	private JComponent[] disabledWhileSimulatingComponent; 
+	
 	public SimWindow() {
 		super("Traffic Simulator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,6 +111,9 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 	 */
 	private void addBars() {
 
+		JLabel delay = new JLabel(" Delay: ");
+		JSpinner delaySpinner = new JSpinner(new SpinnerNumberModel(1000, 1 , 10000, 5));
+		
 		JLabel steps = new JLabel(" Steps: ");
 		JSpinner stepsSpinner = new JSpinner(
 				new SpinnerNumberModel(control.getTicksSim(), 1, 1000, 1));
@@ -138,6 +144,10 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		SimulatorAction executeSim = new SimulatorAction("Run", "play.png",
 				"Ejecutar simulador", KeyEvent.VK_E, "control E",
 				() -> control.ejecutaKPasos((Integer) stepsSpinner.getValue()));
+		
+		SimulatorAction stopSim = new SimulatorAction("Stop", "stop.png",
+				"Parar simulador", KeyEvent.VK_E, "control P",
+				() -> {statusBarReport.setText("Simulation stopped."); enableFunctions(false); });
 
 		SimulatorAction restartSim = new SimulatorAction("Reset Sim", "reset.png",
 				"Reiniciar simulador", KeyEvent.VK_R, "control R",
@@ -159,6 +169,13 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 				"Salir de la aplicacion", KeyEvent.VK_A, "control shift X",
 				() -> System.exit(0));
 
+		disabledWhileSimulatingActions = new Action[] {
+			cargar,	guardar, clear,	insertEvents, executeSim, restartSim, report, clearReport, saveReport, salir
+		};
+		disabledWhileSimulatingComponent = new JComponent[] {
+				stepsSpinner, delaySpinner
+		};
+		
 		JCheckBoxMenuItem redirectOutput = new JCheckBoxMenuItem("Redirect output");
 		redirectOutput.addActionListener((e) -> {
 			if (control.getOutputStream() == null)
@@ -174,7 +191,10 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		bar.add(clear);
 		bar.add(insertEvents);
 		bar.add(executeSim);
+		bar.add(stopSim);
 		bar.add(restartSim);
+		bar.add(delay);
+		bar.add(delaySpinner);
 		bar.add(steps);
 		bar.add(stepsSpinner);
 		bar.add(time);
@@ -185,6 +205,8 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		bar.add(salir);
 		add(bar, BorderLayout.NORTH);
 
+		
+		
 		// add actions to menubar, and bar to window
 		JMenu file = new JMenu("File");
 		file.add(cargar);
@@ -234,6 +256,17 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		statusBarReport = new JLabel("");
 		statusBar.add(statusBarReport);
 	}
+	private void enableFunctions(boolean enable) {
+		
+		for(Action a: disabledWhileSimulatingActions) {
+			a.setEnabled(enable);
+		}
+		for(JComponent c: disabledWhileSimulatingComponent) {
+			c.setEnabled(enable);
+		}
+		eventsArea.setEnabled(enable);
+	}
+
 	/**
 	 * Inicializa el panel superior con los paneles de eventos y de informes.
 	 */
