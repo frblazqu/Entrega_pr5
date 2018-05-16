@@ -47,6 +47,8 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 	JTextField timeText;
 
 	Controller control;
+	
+	Stepper stepper;
 
 	private Action[] disabledWhileSimulatingActions;
 	private JComponent[] disabledWhileSimulatingComponent; 
@@ -103,6 +105,8 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		bottomSplit.setResizeWeight(0.5); // A pesar de que cambiemos la ventana
 
 		control.simulador().addSimulatorListener(this);
+		
+		stepper = new Stepper(()->enableFunctions(false), ()->control.ejecutaKPasos(1), ()->enableFunctions(true));
 	}
 
 	/* MÉTODOS DE INICIALIZACIÓN. */
@@ -143,11 +147,11 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 
 		SimulatorAction executeSim = new SimulatorAction("Run", "play.png",
 				"Ejecutar simulador", KeyEvent.VK_E, "control E",
-				() -> control.ejecutaKPasos((Integer) stepsSpinner.getValue()));
+				() -> stepper.start((Integer) stepsSpinner.getValue(), (Integer) delaySpinner.getValue()));
 		
 		SimulatorAction stopSim = new SimulatorAction("Stop", "stop.png",
 				"Parar simulador", KeyEvent.VK_E, "control P",
-				() -> {statusBarReport.setText("Simulation stopped."); enableFunctions(false); });
+				() -> stepper.stop());
 
 		SimulatorAction restartSim = new SimulatorAction("Reset Sim", "reset.png",
 				"Reiniciar simulador", KeyEvent.VK_R, "control R",
