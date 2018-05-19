@@ -6,7 +6,6 @@ import es.ucm.fdi.ini.IniSection;
 public class Freeway extends Road {
 	private int lanes;
 
-	// CONSTRUCTORAS
 	/**
 	 * Constructora por defecto, NO USAR SIN PRECAUCIÓN.
 	 * 
@@ -27,8 +26,6 @@ public class Freeway extends Road {
 		this.lanes = lanes;
 	}
 
-	// MÉTODOS QUE SOBREESCRIBEN
-	@Override
 	public void fillSectionDetails(IniSection s) {
 		s.setValue("type", "lanes");
 		s.setValue("state", vehiclesInRoad());

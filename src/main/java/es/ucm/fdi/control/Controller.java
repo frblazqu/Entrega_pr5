@@ -20,14 +20,14 @@ import es.ucm.fdi.model.TrafficSimulator;
  * @version 23/03/18
  */
 public class Controller {
-	// ATRIBUTOS POR DEFECTO
+	
 	private final static int DEFAULT_TICKS = 10;
 	private final static String DEFAULT_INI_FILE = "iniFile.ini";
 	private final static String DEFAULT_OUT_FILE = "outFile.ini";
 	private final static String DEFAULT_READ_DIRECTORY = "src/main/resources/readStr/";
 	private final static String DEFAULT_WRITE_DIRECTORY = "src/main/resources/writeStr/";
 
-	// ATRIBUTOS DE LA CLASE
+	
 	private int ticksSimulacion; // Duración de la simulación
 	private OutputStream outputStream; // Flujo de salida de informes de la
 										// simulación
@@ -35,9 +35,7 @@ public class Controller {
 										// simulación
 	private TrafficSimulator simulador; // Simulador a controlar
 	private String inputPath;
-	// private EventFactory eventBuilder; //Para parsear iniSection como events
 
-	// CONSTRUCTORAS
 	/**
 	 * Crea un nuevo simulador y nuevos flujos de entrada salida con los
 	 * parámetros recibidos.
@@ -100,7 +98,6 @@ public class Controller {
 		}
 	}
 
-	// MÉTODOS
 	/**
 	 * Lee el fichero .ini del flujo de entrada y parsea cada una de sus
 	 * secciones en eventos que inserta en el simulador. Dejamos que se lancen

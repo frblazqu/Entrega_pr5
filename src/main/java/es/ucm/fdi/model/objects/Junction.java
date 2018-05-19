@@ -28,7 +28,6 @@ public class Junction extends SimulatedObject {
 	protected int numCarreterasEntrantes; // Número de carreteras que entran a
 											// este cruce
 
-	// CONSTRUCTORAS
 	/**
 	 * Constructora por defecto. NO DEBE USARSE SIN PRECAUCIÓN.
 	 * 
@@ -56,7 +55,6 @@ public class Junction extends SimulatedObject {
 		semaforo = -1;
 	}
 
-	// FUNCIONALIDAD
 	/**
 	 * Avanza el estado del cruce en la simulación, esto es, permite avanzar a
 	 * su siguiente carretera al vehículo que más lleva esperando en la
@@ -141,7 +139,6 @@ public class Junction extends SimulatedObject {
 		;
 	}
 
-	// INFORMES Y TABLAS
 	/**
 	 * @return "junction_report" como encabezado por defecto para los informes
 	 *         de los cruces.

@@ -18,12 +18,12 @@ public class ComponentTable extends JPanel {
 
 	private ListOfMapsTableModel elementsTable;
 	private String[] columns;
-	private List<Describable> elements;
+	private List<? extends Describable> elements;
 	private JTable table;
 
 	String name;
 
-	public ComponentTable(String[] c, List<Describable> d, String n) {
+	public ComponentTable(String[] c, List<? extends Describable> d, String n) {
 		super(new BorderLayout());
 		columns = c;
 		elements = d;
@@ -31,7 +31,7 @@ public class ComponentTable extends JPanel {
 		initGUI();
 	}
 
-	public void setElementsList(List<Describable> l) {
+	public void setElementsList(List<? extends Describable> l) {
 		elements = l;
 	}
 
@@ -76,11 +76,6 @@ public class ComponentTable extends JPanel {
 		scroll.setBorder(BorderFactory.createTitledBorder(b, name));
 
 		this.add(scroll);
-	}
-
-	public void addElement(Describable d) {
-		elements.add(d);
-		elementsTable.updateTable();
 	}
 
 	public void pop() {

@@ -26,7 +26,6 @@ public class Road extends SimulatedObject {
 														// por su distancia al
 														// origen de manera
 														// decreciente
-	// CONSTRUCTORAS
 	/**
 	 * Constructora por defecto, NO DEBE USARSE SIN PRECAUCIÓN.
 	 * 
@@ -66,7 +65,6 @@ public class Road extends SimulatedObject {
 		// vehiculos = new MultiTreeMap<Integer,Vehicle>(new MayorAMenor());
 	}
 
-	// FUNCIONALIDAD
 	public int getLongitud() {
 		return longitud;
 	}
@@ -139,10 +137,6 @@ public class Road extends SimulatedObject {
 	 *         contrario.
 	 */
 	public boolean saleVehiculo(Vehicle vehicle) {
-		// if(vehicle.actualRoad() != this || vehicle.getLocalizacion() !=
-		// longitud)
-		// return false;
-
 		return vehiculos.removeValue(longitud, vehicle);
 	}
 	/**
@@ -155,7 +149,6 @@ public class Road extends SimulatedObject {
 		}
 	}
 
-	// INFORMES Y TABLAS
 	/**
 	 * @return "road_report" como encabezado por defecto para los reports de las
 	 *         carreteras.
