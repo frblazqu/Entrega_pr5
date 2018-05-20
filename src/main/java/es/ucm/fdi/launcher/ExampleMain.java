@@ -7,6 +7,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import es.ucm.fdi.control.Controller;
@@ -41,7 +44,7 @@ public class ExampleMain {
 
 	public static void parseArgs(String[] args) {
 		// Si hay algún error de parseo hace que todo termine (ver catch final)
-		
+
 		// define the valid command line options
 		Options cmdLineOptions = buildOptions();
 
@@ -55,9 +58,6 @@ public class ExampleMain {
 			parseOutFileOption(line);
 			parseStepsOption(line);
 			parseModeOption(line);
-
-			// Aquí ya está todo parseado, es solo que no haya basura y
-			// controlar casos raros
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -302,7 +302,7 @@ public class ExampleMain {
 			Controller controller = new Controller(_inFile, _timeLimit);
 			SwingUtilities.invokeLater(() -> new SimWindow(controller));
 		} catch (Exception e) {
-			
+
 			muestraMensajeError(e.getMessage());
 
 			/*
@@ -367,12 +367,15 @@ public class ExampleMain {
 	public static String getOutFile() {
 		return _outFile;
 	}
-	
-	private static void muestraMensajeError(String error)
-	{
-		System.err.println("Ha fallado la simulación con características:\n"
-				+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
-				+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
-				+ "Motivo:\n" + error);
+
+	private static void muestraMensajeError(String error) {
+		
+		JPanel fatherPane = new JPanel();
+		JOptionPane.showMessageDialog(fatherPane,
+				"Ha fallado la simulación con características:\n" + "-> tiempo: "
+						+ _timeLimit + "\n" + "-> fichero de entrada: " + _inFile + "\n"
+						+ "-> fichero de salida: " + _outFile + "\n" + "Motivo:\n"
+						+ error,
+				"Fallo en la simulación!", JOptionPane.ERROR_MESSAGE);
 	}
 }
