@@ -265,26 +265,22 @@ public class ExampleMain {
 							break;
 					}
 				}
-				@Override
+		
 				public void reset(UpdateEvent ue) {
 				}
 				
-				@Override
 				public void registered(UpdateEvent ue) {
 					controller.leerDatosSimulacion();
 					controller.run();
 				}
 
-				@Override
 				public void newEvent(UpdateEvent ue) {
 				}
 
-				@Override
 				public void error(UpdateEvent ue, String error) {
 					muestraMensajeError(error);
 				}
 
-				@Override
 				public void advanced(UpdateEvent ue) {
 				}
 			});
