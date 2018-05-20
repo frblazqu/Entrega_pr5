@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
 import es.ucm.fdi.control.SimulatorAction;
 
 public class TextEditor extends JPanel {
@@ -144,8 +145,13 @@ public class TextEditor extends JPanel {
 		try {
 			s = new Scanner(file).useDelimiter("\\A").next();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+			JPanel fatherPane = new JPanel();
+			JOptionPane.showMessageDialog(fatherPane, "No se ha podido cargar el fichero de entrada\n" + 
+					"Puedes introducir otro fichero desde el selector del simulador",
+								"Fichero introducido no válido",
+								JOptionPane.ERROR_MESSAGE);
+
+					}
 
 		return s;
 	}

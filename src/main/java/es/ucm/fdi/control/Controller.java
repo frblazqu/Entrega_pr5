@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import es.ucm.fdi.model.TrafficSimulator;
 
 /**
@@ -39,9 +40,10 @@ public class Controller {
 	 *            localización del fichero de escritura de informes
 	 * @param numTicks
 	 *            duración de la simulación a ejecutar
+	 * @throws Exception 
 	 * 
 	 */
-	public Controller(String loadFilePath, String saveFilePath, int numTicks) {
+	public Controller(String loadFilePath, String saveFilePath, int numTicks) throws Exception {
 		try {
 			inputPath = loadFilePath;
 			inputStream = new FileInputStream(new File(loadFilePath));
@@ -49,10 +51,12 @@ public class Controller {
 			simulador = new TrafficSimulator();
 			ticksSimulacion = numTicks;
 		} catch (Exception e) {
-			System.err.println("Error al crear el controlador.");
+			throw new Exception("Error al crear el controlador.", e);
 		}
 	}
 
+	
+	
 	public Controller(String loadFilePath, int numTicks) throws Exception {
 		try {
 			inputPath = loadFilePath;
