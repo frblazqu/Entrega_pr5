@@ -190,16 +190,6 @@ public class TrafficSimulator {
 	 */
 	public interface Listener {
 		void update(UpdateEvent ue, String error);
-
-		/*
-		 * No es forzado que implementen estos métodos, pero esperamos que den
-		 * respuesta a estas distintas situaciones que se pueden plantear.
-		 */
-		void registered(UpdateEvent ue);
-		void reset(UpdateEvent ue);
-		void newEvent(UpdateEvent ue);
-		void advanced(UpdateEvent ue);
-		void error(UpdateEvent ue, String error);
 	}
 	/**
 	 * Clase que permite representar el estado del simulador para mandar este a
