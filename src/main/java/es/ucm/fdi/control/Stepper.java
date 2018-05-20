@@ -26,7 +26,7 @@ public class Stepper {
 					try {
 						Thread.sleep(delay);
 					} catch(InterruptedException e) {
-						
+						//Just to stop the execution, jumps to finally			
 					}
 					--steps;
 				}

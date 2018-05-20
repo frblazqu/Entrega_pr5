@@ -248,11 +248,12 @@ public class ExampleMain {
 	private static void startBatchMode() throws SimulationFailedException {
 		
 		if(_inFile == null) {
-			System.err.println("An events file is missing");
+			muestraMensajeError("An events file is missing");
 		}
 		else {
-			Controller controller = new Controller(_inFile, _outFile, _timeLimit);
-			controller.simulador().addSimulatorListener(new TrafficSimulator.Listener() {
+			try {
+				Controller controller = new Controller(_inFile, _outFile, _timeLimit);
+				controller.simulador().addSimulatorListener(new TrafficSimulator.Listener() {
 
 				@Override
 				public void update(UpdateEvent ue, String error) {
@@ -288,6 +289,9 @@ public class ExampleMain {
 				public void advanced(UpdateEvent ue) {
 				}
 			});
+			}catch(Exception e) {
+				muestraMensajeError(e.getMessage());
+			}
 		}
 
 	}
