@@ -14,8 +14,6 @@ public class Bike extends Vehicle {
 	}
 	/**
 	 * {@link Vehicle#Vehicle(String, int, String[], RoadMap)}
-	 * 
-	 * @deprecated Por requerir una constructora desaconsejada de Vehicle.
 	 */
 	public Bike(String id, int maxSpeed, String[] trayecto, RoadMap map) {
 		super(id, maxSpeed, trayecto, map);

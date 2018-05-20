@@ -27,7 +27,6 @@ import org.apache.commons.cli.ParseException;
 public class ExampleMain {
 
 	private final static Integer DEFAULT_TIME_VALUE = 10;
-	private final static String DEFAULT_READ_DIRECTORY = "src/main/resources/readStr/";
 	private final static String DEFAULT_WRITE_DIRECTORY = "src/main/resources/writeStr/";
 	private final static String DEFAULT_INI_FILE = "iniFile.ini";
 	private final static String DEFAULT_OUT_FILE = "outFile.ini";
@@ -42,19 +41,6 @@ public class ExampleMain {
 														// escribir los datos
 	public static String _simMode = DEFAULT_SIM_MODE; // Modo de ejecución
 
-
-	/**
-	 * DUDAS:
-	 *
-	 * ¿Por qué parsea un array y no un string? ¿Presupone split? ¿Clase
-	 * Options? ¿Clase CommandLineParser? ¿Clase CommandLine?
-	 *
-	 * Ya no es que me interese saber exactamente que hacen estos métodos pero
-	 * si que quiero saber por qúe no se ha tenido que implementar el parser, lo
-	 * ha cogido ya hecho. ¿De dónde lo ha sacado? ¿Cómo puedo verlo? En
-	 * definitiva buscar las librerías org.apache.commons y ver que se cuece por
-	 * ahí. ¿Se puede hacer esto sin maven? Dudas para el bueno de ManuFreire.
-	 */
 	public static void parseArgs(String[] args) {
 		// Si hay algún error de parseo hace que todo termine (ver catch final)
 		
@@ -136,7 +122,7 @@ public class ExampleMain {
 	 *             Si no se parsea correctamente el fichero de entrada.
 	 */
 	private static void parseInFileOption(CommandLine line) throws ParseException {
-		_inFile = DEFAULT_READ_DIRECTORY + line.getOptionValue("i", DEFAULT_INI_FILE);
+		_inFile = line.getOptionValue("i", DEFAULT_INI_FILE);
 		if (_inFile == null) {
 			throw new ParseException("An events file is missing");
 		}
@@ -296,10 +282,7 @@ public class ExampleMain {
 
 			@Override
 			public void error(UpdateEvent ue, String error) {
-				System.err.println("Ha fallado la simulación con características:\n"
-						+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
-						+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
-						+ "Motivo:\n" + error);
+				muestraMensajeError(error);
 			}
 
 			@Override
@@ -319,10 +302,8 @@ public class ExampleMain {
 			Controller controller = new Controller(_inFile, _timeLimit);
 			SwingUtilities.invokeLater(() -> new SimWindow(controller));
 		} catch (Exception e) {
-			System.err.println("Ha fallado la simulación con características:\n"
-					+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
-					+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
-					+ "Motivo:\n" + e.getMessage());
+			
+			muestraMensajeError(e.getMessage());
 
 			/*
 			 * Construye una excepción en la que pone: Mira con estos parámetros
@@ -385,5 +366,13 @@ public class ExampleMain {
 	}
 	public static String getOutFile() {
 		return _outFile;
+	}
+	
+	private static void muestraMensajeError(String error)
+	{
+		System.err.println("Ha fallado la simulación con características:\n"
+				+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
+				+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
+				+ "Motivo:\n" + error);
 	}
 }
