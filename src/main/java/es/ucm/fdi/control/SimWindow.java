@@ -31,52 +31,27 @@ import es.ucm.fdi.model.objects.Vehicle;
 
 public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 
-	JFileChooser fc;
-	JSplitPane bottomSplit;
-	JSplitPane mainPanel;
+	private JFileChooser fc;
+	private JSplitPane bottomSplit;
+	private JSplitPane mainPanel;
 
-	JLabel statusBarReport;
-	JPanel graphPanel;
-	GraphComponent graphComp;
-	TextEditor eventsArea;
-	TextEditor reportsArea;
-	ComponentTable eventsQueue;
-	ComponentTable vehiclesTable;
-	ComponentTable roadsTable;
-	ComponentTable junctionsTable;
-	JTextField timeText;
+	private JLabel statusBarReport;
+	private JPanel graphPanel;
+	private GraphComponent graphComp;
+	private TextEditor eventsArea;
+	private TextEditor reportsArea;
+	private ComponentTable eventsQueue;
+	private ComponentTable vehiclesTable;
+	private ComponentTable roadsTable;
+	private ComponentTable junctionsTable;
+	private JTextField timeText;
 
-	Controller control;
+	private Controller control;
+	
+	private Stepper stepper;
 
 	private Action[] disabledWhileSimulatingActions;
 	private JComponent[] disabledWhileSimulatingComponent; 
-	
-	public SimWindow() {
-		super("Traffic Simulator");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		fc = new JFileChooser();
-		fc.setFileFilter(new FileNameExtensionFilter("INI File", "ini"));
-
-		control = new Controller();
-
-		addLowerPanel();
-		addUpperPanel();
-		addBars();
-
-		add(mainPanel);
-
-		pack();
-		setVisible(true);
-
-		mainPanel.setDividerLocation(.3); // 30% de espacio al panel superior
-		mainPanel.setResizeWeight(.3); // A pesar de que cambiemos la ventana
-		bottomSplit.setDividerLocation(.5); // 50% de espacio para tablas en el
-											// panel inferior
-		bottomSplit.setResizeWeight(0.5); // A pesar de que cambiemos la ventana
-
-		control.simulador().addSimulatorListener(this);
-	}
 
 	public SimWindow(Controller c) {
 		super("Traffic Simulator");
@@ -103,6 +78,8 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		bottomSplit.setResizeWeight(0.5); // A pesar de que cambiemos la ventana
 
 		control.simulador().addSimulatorListener(this);
+		
+		stepper = new Stepper(()->enableFunctions(false), ()->control.ejecutaKPasos(1), ()->enableFunctions(true));
 	}
 
 	/* MÉTODOS DE INICIALIZACIÓN. */
@@ -143,11 +120,11 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 
 		SimulatorAction executeSim = new SimulatorAction("Run", "play.png",
 				"Ejecutar simulador", KeyEvent.VK_E, "control E",
-				() -> control.ejecutaKPasos((Integer) stepsSpinner.getValue()));
+				() -> stepper.start((Integer) stepsSpinner.getValue(), (Integer) delaySpinner.getValue()));
 		
 		SimulatorAction stopSim = new SimulatorAction("Stop", "stop.png",
 				"Parar simulador", KeyEvent.VK_E, "control P",
-				() -> {statusBarReport.setText("Simulation stopped."); enableFunctions(false); });
+				() -> stepper.stop());
 
 		SimulatorAction restartSim = new SimulatorAction("Reset Sim", "reset.png",
 				"Reiniciar simulador", KeyEvent.VK_R, "control R",
@@ -344,11 +321,6 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		graphComp.setGraph(g);
 	}
 
-	/* MAIN */
-	public static void main(String... args) {
-		SwingUtilities.invokeLater(() -> new SimWindow());
-	}
-
 	/* MÉTODOS DE LISTENER */
 	public void update(UpdateEvent ue, String error) {
 		statusBarReport.setForeground(Color.black);
@@ -373,26 +345,19 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 	}
 	public void registered(UpdateEvent ue) {
 
-		List<Describable> v = (List<Describable>) (List) ue.getRoadMap().getVehicles();
-		List<Describable> r = (List<Describable>) (List) ue.getRoadMap().getRoads();
-		List<Describable> j = (List<Describable>) (List) ue.getRoadMap().getJunctions();
-
-		vehiclesTable.setElementsList(v);
-		roadsTable.setElementsList(r);
-		junctionsTable.setElementsList(j);
+		vehiclesTable.setElementsList(ue.getRoadMap().getVehicles());
+		roadsTable.setElementsList(ue.getRoadMap().getRoads());
+		junctionsTable.setElementsList(ue.getRoadMap().getJunctions());
 
 		generateGraph(ue);
 
 		statusBarReport.setText(" Se ha vinculado correctamente al simulador.");
 	}
 	public void reset(UpdateEvent ue) {
-		List<Describable> v = (List<Describable>) (List) ue.getRoadMap().getVehicles();
-		List<Describable> r = (List<Describable>) (List) ue.getRoadMap().getRoads();
-		List<Describable> j = (List<Describable>) (List) ue.getRoadMap().getJunctions();
 
-		vehiclesTable.setElementsList(v);
-		roadsTable.setElementsList(r);
-		junctionsTable.setElementsList(j);
+		vehiclesTable.setElementsList(ue.getRoadMap().getVehicles());
+		roadsTable.setElementsList(ue.getRoadMap().getRoads());
+		junctionsTable.setElementsList(ue.getRoadMap().getJunctions());
 
 		vehiclesTable.updateTable();
 		roadsTable.updateTable();
@@ -408,10 +373,8 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		// Aquí debemos coger el evento añadido al simulador y cargarlo en
 		// nuestras tablas
 
-		List<Event> eventQueue = ue.getEvenQueue();
-		Event event = eventQueue.get(eventQueue.size() - 1);
-
-		eventsQueue.addElement(event);
+		eventsQueue.setElementsList(ue.getEventQueue());
+		eventsQueue.updateTable();
 
 		statusBarReport.setText(" Se han añadido eventos al simulador.");
 	}

@@ -13,7 +13,6 @@ import es.ucm.fdi.util.StringParser;
  * @author Francisco Javier Blázquez
  */
 public class NewRoundJunction extends NewJunction {
-	// protected String junction_id
 	private int minDurationVerde;
 	private int maxDurationVerde;
 
@@ -31,8 +30,7 @@ public class NewRoundJunction extends NewJunction {
 	}
 
 	public static class NewRoundJunctionBuilder extends NewJunction.NewJunctionBuilder {
-		// protected String id (leido)
-		// protected int time (leido)
+		
 		private int minDurationVerde;
 		private int maxDurationVerde;
 

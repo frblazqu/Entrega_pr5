@@ -26,7 +26,6 @@ import org.apache.commons.cli.ParseException;
 
 public class ExampleMain {
 
-	// ATRIBUTOS POR DEFECTO
 	private final static Integer DEFAULT_TIME_VALUE = 10;
 	private final static String DEFAULT_READ_DIRECTORY = "src/main/resources/readStr/";
 	private final static String DEFAULT_WRITE_DIRECTORY = "src/main/resources/writeStr/";
@@ -34,7 +33,6 @@ public class ExampleMain {
 	private final static String DEFAULT_OUT_FILE = "outFile.ini";
 	private final static String DEFAULT_SIM_MODE = "batch";
 
-	// ATRIBUTOS DE LA CLASE
 	public static Integer _timeLimit = DEFAULT_TIME_VALUE; // Duración de las
 															// simulaciones a
 															// ejecutar
@@ -44,7 +42,6 @@ public class ExampleMain {
 														// escribir los datos
 	public static String _simMode = DEFAULT_SIM_MODE; // Modo de ejecución
 
-	// MÉTODOS
 	/**
 	 * DUDAS:
 	 *
@@ -58,7 +55,7 @@ public class ExampleMain {
 	 * ahí. ¿Se puede hacer esto sin maven? Dudas para el bueno de ManuFreire.
 	 */
 	public static void parseArgs(String[] args) {
-		// SI HAY ALGÚN ERROR DE PARSEO HACE QUE TODO TERMINE (VER CATCH FINAL)
+		// Si hay algún error de parseo hace que todo termine (ver catch final)
 
 		// define the valid command line options
 		Options cmdLineOptions = buildOptions();
@@ -378,7 +375,7 @@ public class ExampleMain {
 		start(args);
 	}
 
-	// MÉTODOS QUE SOLO DEBEN SER USADOS PARA EL TESTEO
+	// Sólo para testeo
 	public static int getTime() {
 		return _timeLimit;
 	}

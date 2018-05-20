@@ -29,7 +29,6 @@ public abstract class Event implements Describable {
 		this.time = time;
 	}
 
-	// MÉTODOS
 	public Integer getTime() {
 		return time;
 	}

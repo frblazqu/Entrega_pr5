@@ -8,12 +8,6 @@ import es.ucm.fdi.util.StringParser;
 
 public class NewCar extends NewVehicle {
 	public static class NewCarBuilder extends NewVehicle.NewVehicleBuilder {
-		// ATRIBUTOS
-		// protected final String TAG = "new_vehicle";
-		// protected int time;
-		// protected String id;
-		// protected int mSpeed;
-		// protected String[] it;
 
 		/**
 		 * Método que indica si estamos (dentro de los vehículos) en la
