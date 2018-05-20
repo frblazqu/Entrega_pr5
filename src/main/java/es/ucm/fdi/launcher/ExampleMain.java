@@ -27,7 +27,6 @@ import org.apache.commons.cli.ParseException;
 public class ExampleMain {
 
 	private final static Integer DEFAULT_TIME_VALUE = 10;
-	private final static String DEFAULT_READ_DIRECTORY = "src/main/resources/readStr/";
 	private final static String DEFAULT_WRITE_DIRECTORY = "src/main/resources/writeStr/";
 	private final static String DEFAULT_INI_FILE = "iniFile.ini";
 	private final static String DEFAULT_OUT_FILE = "outFile.ini";
@@ -123,7 +122,7 @@ public class ExampleMain {
 	 *             Si no se parsea correctamente el fichero de entrada.
 	 */
 	private static void parseInFileOption(CommandLine line) throws ParseException {
-		_inFile = DEFAULT_READ_DIRECTORY + line.getOptionValue("i", DEFAULT_INI_FILE);
+		_inFile = line.getOptionValue("i", DEFAULT_INI_FILE);
 		if (_inFile == null) {
 			throw new ParseException("An events file is missing");
 		}
@@ -283,10 +282,7 @@ public class ExampleMain {
 
 			@Override
 			public void error(UpdateEvent ue, String error) {
-				System.err.println("Ha fallado la simulación con características:\n"
-						+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
-						+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
-						+ "Motivo:\n" + error);
+				muestraMensajeError(error);
 			}
 
 			@Override
@@ -306,10 +302,8 @@ public class ExampleMain {
 			Controller controller = new Controller(_inFile, _timeLimit);
 			SwingUtilities.invokeLater(() -> new SimWindow(controller));
 		} catch (Exception e) {
-			System.err.println("Ha fallado la simulación con características:\n"
-					+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
-					+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
-					+ "Motivo:\n" + e.getMessage());
+			
+			muestraMensajeError(e.getMessage());
 
 			/*
 			 * Construye una excepción en la que pone: Mira con estos parámetros
@@ -372,5 +366,13 @@ public class ExampleMain {
 	}
 	public static String getOutFile() {
 		return _outFile;
+	}
+	
+	private static void muestraMensajeError(String error)
+	{
+		System.err.println("Ha fallado la simulación con características:\n"
+				+ "-> tiempo: " + _timeLimit + "\n" + "-> fichero de entrada: "
+				+ _inFile + "\n" + "-> fichero de salida: " + _outFile + "\n"
+				+ "Motivo:\n" + error);
 	}
 }
