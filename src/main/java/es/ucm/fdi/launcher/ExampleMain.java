@@ -30,15 +30,13 @@ import org.apache.commons.cli.ParseException;
 public class ExampleMain {
 
 	private final static Integer DEFAULT_TIME_VALUE = 10;
-	private final static String DEFAULT_WRITE_DIRECTORY = "src/main/resources/writeStr/";
-	private final static String DEFAULT_INI_FILE = "iniFile.ini";
 	private final static String DEFAULT_OUT_FILE = "outFile.ini";
 	private final static String DEFAULT_SIM_MODE = "batch";
 
 	public static Integer _timeLimit = DEFAULT_TIME_VALUE; // Duración de las
 															// simulaciones a
 															// ejecutar
-	public static String _inFile = DEFAULT_INI_FILE; // Fichero de entrada del
+	public static String _inFile = null; // Fichero de entrada del
 														// que leer los datos
 	public static String _outFile = DEFAULT_OUT_FILE; // Fichero en el que
 														// escribir los datos
@@ -122,10 +120,7 @@ public class ExampleMain {
 	 *             Si no se parsea correctamente el fichero de entrada.
 	 */
 	private static void parseInFileOption(CommandLine line) throws ParseException {
-		_inFile = line.getOptionValue("i", DEFAULT_INI_FILE);
-		if (_inFile == null) {
-			throw new ParseException("An events file is missing");
-		}
+		_inFile = line.getOptionValue("i");
 	}
 	/**
 	 * Parsea el nombre de fichero de escritura. Presupone que este se sitúa en
@@ -137,7 +132,7 @@ public class ExampleMain {
 	 *             Si no se parsea correctamente el fichero de SALIDA.
 	 */
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
-		_outFile = DEFAULT_WRITE_DIRECTORY + line.getOptionValue("o", DEFAULT_OUT_FILE);
+		_outFile = line.getOptionValue("o", DEFAULT_OUT_FILE);
 	}
 	/**
 	 * Parsea el tiempo de la simulación. Inicializa {@link #_timeLimit} a
@@ -251,44 +246,49 @@ public class ExampleMain {
 	 *             If the simulation ended abruptly to notice the cause.
 	 */
 	private static void startBatchMode() throws SimulationFailedException {
+		
+		if(_inFile == null) {
+			System.err.println("An events file is missing");
+		}
+		else {
+			Controller controller = new Controller(_inFile, _outFile, _timeLimit);
+			controller.simulador().addSimulatorListener(new TrafficSimulator.Listener() {
 
-		Controller controller = new Controller(_inFile, _outFile, _timeLimit);
-		controller.simulador().addSimulatorListener(new TrafficSimulator.Listener() {
-
-			@Override
-			public void update(UpdateEvent ue, String error) {
-				switch (ue.getType()) {
-					case ERROR :
-						error(ue, error);
-						break;
-					case REGISTERED :
-						registered(ue);
-						break;
+				@Override
+				public void update(UpdateEvent ue, String error) {
+					switch (ue.getType()) {
+						case ERROR :
+							error(ue, error);
+							break;
+						case REGISTERED :
+							registered(ue);
+							break;
+					}
 				}
-			}
-			@Override
-			public void reset(UpdateEvent ue) {
-			}
+				@Override
+				public void reset(UpdateEvent ue) {
+				}
+				
+				@Override
+				public void registered(UpdateEvent ue) {
+					controller.leerDatosSimulacion();
+					controller.run();
+				}
 
-			@Override
-			public void registered(UpdateEvent ue) {
-				controller.leerDatosSimulacion();
-				controller.run();
-			}
+				@Override
+				public void newEvent(UpdateEvent ue) {
+				}
 
-			@Override
-			public void newEvent(UpdateEvent ue) {
-			}
+				@Override
+				public void error(UpdateEvent ue, String error) {
+					muestraMensajeError(error);
+				}
 
-			@Override
-			public void error(UpdateEvent ue, String error) {
-				muestraMensajeError(error);
-			}
-
-			@Override
-			public void advanced(UpdateEvent ue) {
-			}
-		});
+				@Override
+				public void advanced(UpdateEvent ue) {
+				}
+			});
+		}
 
 	}
 	/**
@@ -350,8 +350,8 @@ public class ExampleMain {
 		// Call test in order to test the simulator on all examples in a
 		// directory.
 		//
-		// test("src/main/resources/readStr/examples/basic/");
-		// test("src/main/resources/readStr/examples/advanced/");
+		// test("src/main/resources/readstr/examples/basic/");
+		// test("src/main/resources/readstr/examples/advanced/");
 
 		// Call start to start the simulator from command line, etc.
 		start(args);

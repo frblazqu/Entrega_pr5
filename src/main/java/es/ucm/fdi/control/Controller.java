@@ -21,13 +21,6 @@ import es.ucm.fdi.model.TrafficSimulator;
  */
 public class Controller {
 	
-	private final static int DEFAULT_TICKS = 10;
-	private final static String DEFAULT_INI_FILE = "iniFile.ini";
-	private final static String DEFAULT_OUT_FILE = "outFile.ini";
-	private final static String DEFAULT_READ_DIRECTORY = "src/main/resources/readStr/";
-	private final static String DEFAULT_WRITE_DIRECTORY = "src/main/resources/writeStr/";
-
-	
 	private int ticksSimulacion; // Duración de la simulación
 	private OutputStream outputStream; // Flujo de salida de informes de la
 										// simulación
@@ -59,37 +52,10 @@ public class Controller {
 			System.err.println("Error al crear el controlador.");
 		}
 	}
-	/**
-	 * Crea un nuevo simulador con entrada de eventos, flujo de salida y
-	 * duración de la simulación por defecto. Llama a la constructora más
-	 * general con los parámetros por defecto. Entrada por defecto ->
-	 * src/main/resources/readStr/iniFile.ini Salida por defecto ->
-	 * src/main/resources/writeStr/outFile.ini Duración simulación por defecto
-	 * -> 10
-	 * 
-	 * @see #Controller(String, String, int)
-	 */
-	public Controller() {
-		this(DEFAULT_READ_DIRECTORY + DEFAULT_INI_FILE/**/,
-				DEFAULT_WRITE_DIRECTORY + DEFAULT_OUT_FILE /**/, DEFAULT_TICKS);
-	}
-	/**
-	 * Llama a la constructora más general con el tiempo por defecto. Duración
-	 * simulación por defecto -> 10 ticks
-	 * 
-	 * @see #Controller(String, String, int)
-	 * @throws FileNotFoundException
-	 */
-	public Controller(String loadFilePath, String saveFilePath) {
-		this(loadFilePath, saveFilePath, DEFAULT_TICKS);
-	}
 
 	public Controller(String loadFilePath, int numTicks) throws Exception {
 		try {
 			inputPath = loadFilePath;
-			if (!loadFilePath.equals(DEFAULT_READ_DIRECTORY + DEFAULT_INI_FILE)) {
-				inputStream = new FileInputStream(new File(loadFilePath));
-			}
 			outputStream = null;
 			simulador = new TrafficSimulator();
 			ticksSimulacion = numTicks;
