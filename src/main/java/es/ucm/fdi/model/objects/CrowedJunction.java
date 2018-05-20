@@ -13,25 +13,13 @@ import es.ucm.fdi.ini.IniSection;
  * @author Manuel Ortega Salvador
  * @version 03/05/18
  */
-public class CrowedJunction
-		extends
-			Junction {/*
-						 * protected Map<String, ArrayDeque<Vehicle>> colas;
-						 * //Pares de Ids de carreteras entrantes, colas de
-						 * vehículos esperando protected List<String>
-						 * incomingRoadIds; //Ids de las carreteras entrantes,
-						 * para acceder rápido con el semáforo protected int
-						 * semaforo; //Índice dentro de IncomingRoads de la que
-						 * tiene el semáforo verde protected int
-						 * numCarreterasEntrantes; //Número de carreteras que
-						 * entran a este cruce
-						 */
+public class CrowedJunction extends	Junction {
+	
 	private int tiempoConsumido; // Para controlar el numTicks que lleva en
 									// verde el semáforo que permite el paso
 	private int limiteDeTiempo; // Limite de tiempo para esta carretera para
 								// este momento.
 
-	// CONSTRUCTORAS
 	/**
 	 * Constructora por defecto, NO UTILIZAR SIN PRECAUCIÓN.
 	 * 
@@ -51,7 +39,6 @@ public class CrowedJunction
 		limiteDeTiempo = 1;
 	}
 
-	// MÉTODOS SOBREESCRITOS
 	@Override
 	public void inicializaSemaforo() {
 		semaforo = numCarreterasEntrantes - 1;

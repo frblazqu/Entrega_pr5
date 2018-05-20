@@ -29,7 +29,6 @@ public class Vehicle extends SimulatedObject {
 	protected boolean enDestino; // True si y sólo si el vehículo está al final
 									// de la última carretera de itinerario.
 
-	// CONSTRUCTORAS
 	/**
 	 * Constructora por defecto. NO DEBE USARSE SIN PRECAUCIÓN.
 	 * 

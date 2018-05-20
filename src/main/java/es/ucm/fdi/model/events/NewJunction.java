@@ -17,13 +17,11 @@ import es.ucm.fdi.ini.*;
 public class NewJunction extends Event {
 	protected String junction_id;
 
-	// CONSTRUCTORAS
 	public NewJunction(String junctionId, int time) {
 		super(time);
 		junction_id = junctionId;
 	}
 
-	// MÉTODOS PUBLICOS Y GENERALES
 	public void execute(RoadMap map) throws IllegalArgumentException {
 		if (map.duplicatedId(junction_id))
 			throw new IllegalArgumentException(
@@ -43,19 +41,17 @@ public class NewJunction extends Event {
 		/* Ha caido en desuso */
 	}
 
-	// MÉTODOS QUE DEBEN SOBREESCRIBIR LAS CLASES HIJAS
 	protected Junction construyeElemento() {
 		return new Junction(junction_id);
 	}
 
-	// BUILDER
 	public static class NewJunctionBuilder implements EventBuilder {
-		// ATRIBUTOS DE JUNCTION, COMUNES A TODOS LOS CRUCES
+		// Atributos de junction, comunes a todos los cruces
 		protected final String TAG = "new_junction";
 		protected int time;
 		protected String id;
 
-		// MÉTODO GENERAL PARA CONSTRUIR TODOS LOS CRUCES
+		// Método general para construir los cruces
 		public Event parse(IniSection sec) throws IllegalArgumentException {
 			if (!sec.getTag().equals(TAG) || !esDeEsteTipo(sec))
 				return null;
@@ -68,7 +64,7 @@ public class NewJunction extends Event {
 			id = StringParser.parseId(sec.getValue("id"));
 		}
 
-		// MÉTODOS QUE DEBEN SER SOBREESCRITOS PARA LOS DEMÁS CRUCES
+		// Métodos sobreescritos por los demás cruces
 		protected boolean esDeEsteTipo(IniSection sec) {
 			return sec.getValue("type") == null;
 		}
@@ -77,7 +73,6 @@ public class NewJunction extends Event {
 		}
 	}
 
-	// DESCRIBABLE
 	public void describe(Map<String, String> out) {
 		super.describe(out);
 		out.put("Type", "New Junction " + junction_id);

@@ -32,7 +32,6 @@ public class TrafficSimulator {
 	private List<Listener> observadores; // Lista de observadores a los que
 											// notificar los cambios
 
-	// CONSTRUCTORA
 	/**
 	 * Constructora usual. Crea un simulador vacío de objetos y de eventos.
 	 */
@@ -43,7 +42,6 @@ public class TrafficSimulator {
 		observadores = new ArrayList<>();
 	}
 
-	// FUNCIONALIDAD
 	/**
 	 * Inserta un evento en el simulador manteniendo la ordenación por tiempo y
 	 * orden de insercción. Notifica esta insercción a los observadores.
@@ -178,7 +176,7 @@ public class TrafficSimulator {
 		fireUpdateEvent(EventType.RESET, null);
 	}
 
-	// PARA MVC
+	// Para mvc
 	/**
 	 * Enumerado con todos los eventos que se contempla notificar a los
 	 * observadores.
@@ -219,7 +217,7 @@ public class TrafficSimulator {
 		public RoadMap getRoadMap() {
 			return mapa;
 		}
-		public List<Event> getEvenQueue() {
+		public List<Event> getEventQueue() {
 			return listaEventos.valuesList();
 		}
 		public int getCurrentTime() {

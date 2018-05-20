@@ -13,19 +13,8 @@ import es.ucm.fdi.ini.IniSection;
  * @author Francisco Javier Blázquez Martínez
  * @version 03/05/18
  */
-public class RoundJunction
-		extends
-			Junction {/*
-						 * protected Map<String, ArrayDeque<Vehicle>> colas;
-						 * //Pares de Ids de carreteras entrantes, colas de
-						 * vehículos esperando protected List<String>
-						 * incomingRoadIds; //Ids de las carreteras entrantes,
-						 * para acceder rápido con el semáforo protected int
-						 * semaforo; //Índice dentro de IncomingRoads de la que
-						 * tiene el semáforo verde protected int
-						 * numCarreterasEntrantes; //Número de carreteras que
-						 * entran a este cruce
-						 */
+public class RoundJunction extends Junction {
+	
 	private int minDuration; // Mínimo tiempo que un semáforo de cualquier
 								// carretera entrante puede estar verde
 	private int maxDuration; // Máximo tiempo que un semáforo de cualquier
@@ -39,15 +28,6 @@ public class RoundJunction
 													// tiempo que su semáforo
 													// estará en verde
 
-	// CONSTRUCTORAS
-	/**
-	 * Constructora por defecto, NO UTILIZAR SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues requiere usar la constructora por defecto de Junction.
-	 */
-	public RoundJunction() {
-
-	}
 	/**
 	 * Crea una rotonda en la simulación en la que los semáforos tienen una
 	 * duración mínima y máxima en verde.
@@ -68,7 +48,6 @@ public class RoundJunction
 		intervalosVerde = new HashMap<>();
 	}
 
-	// MÉTODOS SOBREESCRITOS
 	@Override
 	public void inicializaSemaforo() {
 		tiempoConsumido = intervalosVerde

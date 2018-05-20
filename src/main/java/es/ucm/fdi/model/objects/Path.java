@@ -4,7 +4,6 @@ import java.util.Map;
 import es.ucm.fdi.ini.IniSection;
 
 public class Path extends Road {
-	// CONSTRUCTORAS
 	/**
 	 * Constructora por defecto, NO USAR SIN PRECAUCIÓN.
 	 * 

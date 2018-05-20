@@ -65,7 +65,7 @@ public class NewVehicle extends Event {
 		map.addVehicle(vehic);
 	}
 
-	// MÉTODOS SOLO PARA EL TESTEO
+	// Solo para testeo
 	@Override
 	public String getTag() {
 		return "new_vehicle";
@@ -76,7 +76,6 @@ public class NewVehicle extends Event {
 
 	}
 
-	// BUILDER
 	public static class NewVehicleBuilder implements EventBuilder {
 		protected final String TAG = "new_vehicle";
 
@@ -85,7 +84,7 @@ public class NewVehicle extends Event {
 		protected int mSpeed;
 		protected String[] it;
 
-		// MÉTODOS COMUNES A TODAS LAS INSTANCIAS
+		// Métodos comunes a todas las instancias
 		/**
 		 * Lee los atributos comunes a vehicle, car y bike. Estos son el tiempo
 		 * del evento y el itinerario, máxima velocidad e identificador del
@@ -117,7 +116,7 @@ public class NewVehicle extends Event {
 			return leerAtributosEspecificos(sec);
 		}
 
-		// MÉTODOS A SOBREESCRIBIR POR LAS CLASES HIJAS
+		// Métodos a sobreescribir por clases hijas
 		/**
 		 * Método que indica si estamos (dentro de los vehículos) en la
 		 * instancia adecuada para generar a partir de esta seccion.
