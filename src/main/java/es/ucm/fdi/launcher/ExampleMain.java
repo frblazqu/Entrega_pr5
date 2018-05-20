@@ -42,19 +42,6 @@ public class ExampleMain {
 														// escribir los datos
 	public static String _simMode = DEFAULT_SIM_MODE; // Modo de ejecución
 
-
-	/**
-	 * DUDAS:
-	 *
-	 * ¿Por qué parsea un array y no un string? ¿Presupone split? ¿Clase
-	 * Options? ¿Clase CommandLineParser? ¿Clase CommandLine?
-	 *
-	 * Ya no es que me interese saber exactamente que hacen estos métodos pero
-	 * si que quiero saber por qúe no se ha tenido que implementar el parser, lo
-	 * ha cogido ya hecho. ¿De dónde lo ha sacado? ¿Cómo puedo verlo? En
-	 * definitiva buscar las librerías org.apache.commons y ver que se cuece por
-	 * ahí. ¿Se puede hacer esto sin maven? Dudas para el bueno de ManuFreire.
-	 */
 	public static void parseArgs(String[] args) {
 		// Si hay algún error de parseo hace que todo termine (ver catch final)
 		
