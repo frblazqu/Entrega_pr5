@@ -242,7 +242,7 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		mainPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, upperPanel, bottomSplit);
 
 		eventsArea = new TextEditor("Events", true, fc);
-		if (!control.getInputPath().equals("src/main/resources/readStr/iniFile.ini")) {
+		if (control.getInputPath() != null) {
 			eventsArea.setText(TextEditor.readFile(new File(control.getInputPath())));
 		} else {
 			eventsArea.setText("");
