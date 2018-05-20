@@ -209,24 +209,12 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 
 		// añadir statusBar al final
 		JPanel statusBar = new JPanel();
-		statusBar.setBorder(new BevelBorder(BevelBorder.LOWERED)); // Aparentemente
-																	// más bajo,
-																	// efecto
-																	// visual.
-		statusBar.setPreferredSize(new Dimension(this.getWidth(), 25)); // Ajustamos
-																		// dimensiones
-		statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS));// Boxlayout
-																		// en el
-																		// eje
-																		// x.
-																		// Los
-																		// pone
-																		// a
-																		// continuación
+		statusBar.setBorder(new BevelBorder(BevelBorder.LOWERED)); 
+		statusBar.setPreferredSize(new Dimension(this.getWidth(), 25)); 
+		statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS));
 		add(statusBar, BorderLayout.SOUTH);
 
-		JLabel statusLabel = new JLabel("Status: "); // Etiqueta con en la
-														// izquierda
+		JLabel statusLabel = new JLabel("Status: "); 
 		statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		statusBar.add(statusLabel);
 
@@ -321,7 +309,7 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		graphComp.setGraph(g);
 	}
 
-	/* MÉTODOS DE LISTENER */
+	/* Métodos de listener */
 	public void update(UpdateEvent ue, String error) {
 		statusBarReport.setForeground(Color.black);
 
