@@ -29,7 +29,8 @@ public abstract class SimulatedObject implements Describable
 	public void describe(Map<String, String> out) {
 		out.put("ID", id);
 	}
-
+	
+	//Para comunicar con el exterior (formato de la práctica)
 	public abstract void fillReportDetails(Map<String, String> camposValor);
 	public abstract String getHeader();
 	

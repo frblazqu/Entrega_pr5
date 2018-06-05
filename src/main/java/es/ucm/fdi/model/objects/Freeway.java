@@ -1,36 +1,35 @@
 package es.ucm.fdi.model.objects;
 
 import java.util.Map;
-import es.ucm.fdi.ini.IniSection;
 
-public class Freeway extends Road {
+/**
+ * Representación y funcionalidad de un camino en el simulador. Tipo de carretera
+ * con rango de velocidades ampliado.
+ * 
+ * @author Francisco Javier Blázquez
+ * @version Examen final 2017-18
+ */
+public class Freeway extends Road 
+{
 	private int lanes;
 
-	/**
-	 * {@link Road#Road(String, int, int, Junction, Junction)}
-	 * 
-	 * @param lanes
-	 *            Número de carriles de la autopista.
-	 */
-	public Freeway(String id, int maxSpeed, int size, int lanes, Junction junc,
-			Junction ini) {
+	public Freeway(String id, int maxSpeed, int size, int lanes, Junction junc, Junction ini) {
 		super(id, maxSpeed, size, junc, ini);
 		this.lanes = lanes;
 	}
 
-	public void fillSectionDetails(IniSection s) {
-		s.setValue("type", "lanes");
-		s.setValue("state", vehiclesInRoad());
-	}
 	@Override
 	public void fillReportDetails(Map<String, String> camposValor) {
 		camposValor.put("type", "lanes");
 		camposValor.put("state", vehiclesInRoad());
 	}
 	@Override
-	public int velocidadAvance(int numAveriados) {
-		int velocidadBase = Math.min(maxVelocidad,
-				((maxVelocidad * lanes) / (Math.max(1, vehiculos.sizeOfValues()))) + 1);
+	public int velocidadAvance(int numAveriados) 
+	{
+		int factorDeReduccion = Math.max(1, vehiculos.sizeOfValues());
+		int velocidadReducida = ((maxVelocidad * lanes) / factorDeReduccion) + 1;
+	
+		int velocidadBase = Math.min(maxVelocidad, velocidadReducida);
 
 		if (numAveriados < lanes)
 			return velocidadBase;

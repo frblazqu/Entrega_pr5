@@ -3,7 +3,6 @@ package es.ucm.fdi.model.events;
 import java.util.Map;
 
 import es.ucm.fdi.ini.IniSection;
-import es.ucm.fdi.model.Describable;
 import es.ucm.fdi.model.objects.RoadMap;
 import es.ucm.fdi.util.StringParser;
 
@@ -11,10 +10,6 @@ public class MakeVehicleFaulty extends Event {
 	private int faultDuration;
 	private String[] vehicleId;
 
-	public MakeVehicleFaulty() {
-		faultDuration = 0;
-		vehicleId = null;
-	}
 	public MakeVehicleFaulty(int time, int faultDur, String[] vId) {
 		super(time);
 		faultDuration = faultDur;
@@ -57,17 +52,6 @@ public class MakeVehicleFaulty extends Event {
 			}
 		}
 	}
-	@Override
-	public String getTag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void fillSectionDetails(IniSection s) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void describe(Map<String, String> out) {
 		super.describe(out);
 		out.put("Type", "Break Vehicles " + vehiclesForFaultyDesc());

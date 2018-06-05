@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import es.ucm.fdi.ini.Ini;
 import es.ucm.fdi.ini.IniSection;
@@ -113,18 +114,18 @@ public class TrafficSimulator {
 	 */
 	public void generaInforme(OutputStream out) {
 		Ini ini = new Ini();
-
+		
 		// 1. Escribir el report de los cruces
 		for (Junction junc : mapa.getJunctions())
-			ini.addsection(junc.seccionInforme(reloj));
-
+			ini.addsection(seccionObjeto(reloj, junc));
+		
 		// 2. Escribir el report de las carreteras
 		for (Road road : mapa.getRoads())
-			ini.addsection(road.seccionInforme(reloj));
+			ini.addsection(seccionObjeto(reloj, road));
 
 		// 3. Escribir el report de los vehículos
 		for (Vehicle car : mapa.getVehicles())
-			ini.addsection(car.seccionInforme(reloj));
+			ini.addsection(seccionObjeto(reloj, car));
 
 		// 4. Almacenamos el informe de este paso de la simulación.
 		try {
@@ -133,6 +134,19 @@ public class TrafficSimulator {
 			fireUpdateEvent(EventType.ERROR,
 					"No se ha podido almacenar el informe del tiempo " + reloj + ".\n");
 		}
+	}
+	
+	private IniSection seccionObjeto(int time, SimulatedObject simObject)
+	{
+		LinkedHashMap<String, String> reportMap = new LinkedHashMap<>();
+		simObject.report(time, reportMap);
+		
+		IniSection sec = new IniSection(reportMap.get(""));
+		reportMap.remove("");
+		
+		reportMap.forEach((key, value) -> sec.setValue(key, value));
+		
+		return sec;
 	}
 	/**
 	 * Carga los eventos guardados en formato IniSection del inputStream y los

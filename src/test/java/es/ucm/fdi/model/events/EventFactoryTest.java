@@ -7,8 +7,6 @@ import es.ucm.fdi.ini.IniSection;
 public class EventFactoryTest {
 	@Test
 	public void parseIniSectionTest() {
-		// public NewRoad(int time, String id, String iniId, String destId, int
-		// l, int mSpeed)
 
 		// Prueba 1: NewRoad
 		IniSection s1 = new IniSection("new_road");

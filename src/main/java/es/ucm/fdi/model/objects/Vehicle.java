@@ -34,7 +34,8 @@ public class Vehicle extends SimulatedObject
 		tiempoAveria = 0;
 		localizacion = 0;
 		enDestino = false;
-
+		
+		//No contemplamos que exista un vehículo fuera de una carretera.
 		actualRoad().entraVehiculo(this);
 	}
 
@@ -97,7 +98,8 @@ public class Vehicle extends SimulatedObject
 	public int getLocalizacion() {
 		return localizacion;
 	}
-
+	
+	//Para mostrar información al exterior (formato concreto)
 	public String getHeader() {
 		return "vehicle_report";
 	}

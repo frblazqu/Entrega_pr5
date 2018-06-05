@@ -23,10 +23,6 @@ public class NewFreeway extends NewRoad {
 
 	private int lanes;
 
-	public NewFreeway() {
-
-	}
-
 	public NewFreeway(int time, String id, String src, String dest, int l, int mSpeed,
 			int nLanes) {
 		super(time, id, src, dest, l, mSpeed);

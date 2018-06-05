@@ -63,11 +63,6 @@ public class CrowedJunction extends	Junction {
 		}
 	}
 	@Override
-	public void fillSectionDetails(IniSection s) {
-		s.setValue("queues", colaCruce());
-		s.setValue("type", "mc");
-	}
-	@Override
 	public void fillReportDetails(Map<String, String> camposValor) {
 		camposValor.put("queues", colaCruce());
 		camposValor.put("type", "mc");

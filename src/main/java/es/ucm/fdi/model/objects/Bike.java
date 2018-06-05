@@ -1,15 +1,12 @@
 package es.ucm.fdi.model.objects;
 
+import java.util.List;
 import java.util.Map;
-import es.ucm.fdi.ini.IniSection;
 
 public class Bike extends Vehicle {
 
-	/**
-	 * {@link Vehicle#Vehicle(String, int, String[], RoadMap)}
-	 */
-	public Bike(String id, int maxSpeed, String[] trayecto, RoadMap map) {
-		super(id, maxSpeed, trayecto, map);
+	public Bike(String id, int maxSpeed, List<Road> trayecto) {
+		super(id, maxSpeed, trayecto);
 	}
 
 	@Override
@@ -25,13 +22,5 @@ public class Bike extends Vehicle {
 		camposValor.put("type", "bike");
 		camposValor.put("faulty", "" + tiempoAveria);
 		camposValor.put("location", localizacionString());
-	}
-	@Override
-	public void fillSectionDetails(IniSection s) {
-		s.setValue("type", "bike");
-		s.setValue("speed", velActual);
-		s.setValue("kilometrage", kilometrage);
-		s.setValue("faulty", tiempoAveria);
-		s.setValue("location", localizacionString());
 	}
 }

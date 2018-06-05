@@ -31,16 +31,6 @@ public class NewJunction extends Event {
 		map.addJunction(junc);
 	}
 
-	@Override
-	public String getTag() {
-		return "new_junction";
-	}
-
-	@Override
-	public void fillSectionDetails(IniSection s) {
-		/* Ha caido en desuso */
-	}
-
 	protected Junction construyeElemento() {
 		return new Junction(junction_id);
 	}

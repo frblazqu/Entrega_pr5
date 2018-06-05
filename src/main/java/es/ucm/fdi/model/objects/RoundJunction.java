@@ -87,11 +87,6 @@ public class RoundJunction extends Junction {
 		intervalosVerde.put(road.getId(), maxDuration);
 	}
 	@Override
-	public void fillSectionDetails(IniSection s) {
-		s.setValue("queues", colaCruce());
-		s.setValue("type", "rr");
-	}
-	@Override
 	public void fillReportDetails(Map<String, String> camposValor) {
 		camposValor.put("queues", colaCruce());
 		camposValor.put("type", "rr");

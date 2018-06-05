@@ -10,64 +10,43 @@ import es.ucm.fdi.model.objects.Vehicle;
 import es.ucm.fdi.util.StringParser;
 
 public class NewVehicle extends Event {
-	private String vehicleId;    // Id del nuevo vehículo a generar
-	private int maxSpeed;        // Velocidad máxima del nuevo vehículo
-	private String[] itinerary;  // Ids de los cruces del itinerario
+	protected String vehicleId;    // Id del nuevo vehículo a generar
+	protected int maxSpeed;        // Velocidad máxima del nuevo vehículo
+	protected String[] itinerary;  // Ids de los cruces del itinerario
 
 	public NewVehicle(int time, String vId, int mSpeed, String[] it) {
 		super(time);
+		
 		vehicleId = vId;
 		maxSpeed = mSpeed;
 		itinerary = it;
 	}
 
-	public String getId() {
-		return vehicleId;
+	public void describe(Map<String, String> out) {
+		super.describe(out);
+		out.put("Type", "New Vehicle " + vehicleId);
 	}
-
-	public int getmSpeed() {
-		return maxSpeed;
-	}
-
-	public String[] getItinerary() {
-		return itinerary;
-	}
-
-	public void execute(RoadMap map) throws IllegalArgumentException {
+	
+	@Override
+	public void execute(RoadMap map) throws IllegalArgumentException 
+	{
 		if (map.duplicatedId(vehicleId))
 			throw new IllegalArgumentException("El id " + vehicleId + "está duplicado.");
 
-		// Si estamos aquí es porque el identificador del vehículo es válido
-
 		ArrayList<Road> itinerario = new ArrayList<>();
-
-		for (int i = 1; i < itinerary.length; ++i) {
+		for (int i = 1; i < itinerary.length; ++i)
+		{
 			Road road = map.getRoad(itinerary[i - 1], itinerary[i]);
 
 			if (road == null)
-				throw new IllegalArgumentException(
-						"No existe una carretera que una los cruces especificados "
-								+ itinerary[i - 1] + " y " + itinerary[i]
-								+ " para el itinerario.");
+				throw new IllegalArgumentException("El itinerario no es válido.");
 			else
 				itinerario.add(road);
 		}
-
-		Vehicle vehic = new Vehicle(vehicleId, maxSpeed, itinerario);
-		map.addVehicle(vehic);
+		
+		map.addVehicle(new Vehicle(vehicleId, maxSpeed, itinerario));
 	}
-
-	// Solo para testeo
-	@Override
-	public String getTag() {
-		return "new_vehicle";
-	}
-	@Override
-	public void fillSectionDetails(IniSection s) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public static class NewVehicleBuilder implements EventBuilder {
 		protected final String TAG = "new_vehicle";
 
@@ -76,67 +55,27 @@ public class NewVehicle extends Event {
 		protected int mSpeed;
 		protected String[] it;
 
-		// Métodos comunes a todas las instancias
-		/**
-		 * Lee los atributos comunes a vehicle, car y bike. Estos son el tiempo
-		 * del evento y el itinerario, máxima velocidad e identificador del
-		 * vehículo.
-		 * 
-		 * @throws IllegalArgumentException
-		 *             Si no se puede parsear algún elemento de la sección.
-		 */
-		protected void leerAtributosComunes(IniSection sec) {
-			time = StringParser.parseTime(sec.getValue("time"));
-			id = StringParser.parseId(sec.getValue("id"));
-			mSpeed = StringParser.parseIntValue(sec.getValue("max_speed"));
-			it = StringParser.parseIdList(sec.getValue("itinerary"));
-		}
-		/**
-		 * Método encargado de decidir si la sección representa un evento de
-		 * tipo NewVehicle o hijas y generar este en caso de que así sea.
-		 * 
-		 * @param sec
-		 *            Sección formato IniSection a parsear.
-		 * @return un nuevo evento tipo NewVehicle, NewCar o NewBike si consigue
-		 *         parsearlo o null en caso contrario.
-		 */
 		public Event parse(IniSection sec) throws IllegalArgumentException {
 			if (!sec.getTag().equals(TAG) || !esDeEsteTipo(sec))
 				return null;
 
-			leerAtributosComunes(sec);
+			       leerAtributosComunes(sec);
 			return leerAtributosEspecificos(sec);
 		}
-
-		// Métodos a sobreescribir por clases hijas
-		/**
-		 * Método que indica si estamos (dentro de los vehículos) en la
-		 * instancia adecuada para generar a partir de esta seccion.
-		 * 
-		 * @param sec
-		 *            Sección en formato IniSection por parsear.
-		 * @return true Si la sección se corresponde con un evento NewVehicle
-		 */
+		protected void leerAtributosComunes(IniSection sec) {
+			time 	= StringParser.parseTime(sec.getValue("time"));
+			id 		= StringParser.parseId(sec.getValue("id"));
+			mSpeed 	= StringParser.parseIntValue(sec.getValue("max_speed"));
+			it 		= StringParser.parseIdList(sec.getValue("itinerary"));
+		}
+		
+		//Métodos específicos de cada tipo de vehículo (sobreescribir en hijos)
 		protected boolean esDeEsteTipo(IniSection sec) {
 			return sec.getValue("type") == null;
 		}
-		/**
-		 * Debe terminar de parsear la sección IniSection con los atributos
-		 * necesarios para generar un nuevo evento de la instancia que estemos
-		 * considerando y devolver este.
-		 * 
-		 * @param sec
-		 *            La sección formato IniSection que estamos parseando.
-		 * @return El evento representado por la sección.
-		 */
 		protected Event leerAtributosEspecificos(IniSection sec) {
 			return new NewVehicle(time, id, mSpeed, it);
 		}
-	}
 
-	public void describe(Map<String, String> out) {
-		super.describe(out);
-		out.put("Type", "New Vehicle " + vehicleId);
 	}
-
 }

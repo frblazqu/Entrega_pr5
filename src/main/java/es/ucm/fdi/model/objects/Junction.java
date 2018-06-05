@@ -74,6 +74,7 @@ public class Junction extends SimulatedObject
 		;
 	}
 	
+	//Para mostrar información al exterior (formato concreto)
 	public String getHeader() {
 		return "junction_report";
 	}

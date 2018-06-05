@@ -28,6 +28,29 @@ public class Road extends SimulatedObject
 		vehiculos = new MultiTreeMap<Integer, Vehicle>((a, b) -> b - a);
 	}
 
+	public void avanza() 
+	{
+		if (vehiculos.sizeOfValues() > 0) 
+		{
+			MultiTreeMap<Integer, Vehicle> aux = new MultiTreeMap<>((a, b) -> b - a);
+			int numAveriados = 0;
+
+			for (Vehicle v : vehiculos.innerValues()) {
+				if (v.getLocalizacion() != longitud){
+					
+					if (v.averiado())
+						numAveriados++;
+					else
+						v.setVelocidadActual(velocidadAvance(numAveriados));
+
+					v.avanza();
+				}
+				aux.putValue(v.getLocalizacion(), v);
+			}
+
+			vehiculos = aux;
+		}
+	}
 	public int getLongitud() {
 		return longitud;
 	}
@@ -40,30 +63,11 @@ public class Road extends SimulatedObject
 	public List<Vehicle> vehicles() {
 		return vehiculos.valuesList();
 	}
-	public void avanza() 
-	{
-		if (vehiculos.sizeOfValues() > 0) 
-		{
-			MultiTreeMap<Integer, Vehicle> aux = new MultiTreeMap<>((a, b) -> b - a);
-			int numAveriados = 0;
-
-			for (Vehicle v : vehiculos.innerValues()) 
-			{
-				if (v.getLocalizacion() != longitud)
-				{
-					if (v.averiado())
-						numAveriados++;
-					else
-						v.setVelocidadActual(velocidadAvance(numAveriados));
-
-					v.avanza();
-				}
-
-				aux.putValue(v.getLocalizacion(), v);
-			}
-
-			vehiculos = aux;
-		}
+	protected void entraVehiculo(Vehicle vehicle) {
+		vehiculos.putValue(0, vehicle);
+	}
+	public boolean saleVehiculo(Vehicle vehicle) {
+		return vehiculos.removeValue(longitud, vehicle);
 	}
 	protected int velocidadAvance(int numAveriados) {
 		int velocidadBase = Math.min(maxVelocidad,
@@ -74,13 +78,8 @@ public class Road extends SimulatedObject
 		else
 			return velocidadBase / 2;
 	}
-	protected void entraVehiculo(Vehicle vehicle) {
-		vehiculos.putValue(0, vehicle);
-	}
-	public boolean saleVehiculo(Vehicle vehicle) {
-		return vehiculos.removeValue(longitud, vehicle);
-	}
 	
+	//Para mostrar información al exterior (formato concreto)
 	public String getHeader() {
 		return "road_report";
 	}

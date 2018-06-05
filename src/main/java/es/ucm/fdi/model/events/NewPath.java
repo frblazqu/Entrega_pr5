@@ -21,10 +21,6 @@ public class NewPath extends NewRoad {
 
 	}
 
-	public NewPath() {
-
-	}
-
 	public NewPath(int time, String id, String src, String dest, int l, int mSpeed) {
 		super(time, id, src, dest, l, mSpeed);
 	}
