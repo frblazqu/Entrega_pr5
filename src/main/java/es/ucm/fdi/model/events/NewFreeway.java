@@ -1,25 +1,15 @@
 package es.ucm.fdi.model.events;
 
-import java.util.ArrayList;
-import java.util.List;
-import es.ucm.fdi.model.objects.Path;
-import es.ucm.fdi.model.objects.Road;
-import es.ucm.fdi.model.objects.RoadMap;
-import es.ucm.fdi.ini.IniSection;
 import es.ucm.fdi.model.objects.Freeway;
 import es.ucm.fdi.model.objects.Junction;
-import es.ucm.fdi.model.objects.RoadMap.ConexionCruces;
+import es.ucm.fdi.model.objects.Road;
+import es.ucm.fdi.model.objects.RoadMap;
+
+import java.security.InvalidParameterException;
+
+import es.ucm.fdi.ini.IniSection;
 
 public class NewFreeway extends NewRoad {
-	public static class NewFreewayBuilder implements EventBuilder {
-
-		@Override
-		public Event parse(IniSection sec) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-	}
 
 	private int lanes;
 
@@ -31,37 +21,33 @@ public class NewFreeway extends NewRoad {
 
 	public void execute(RoadMap map) throws IllegalArgumentException {
 		if (map.duplicatedId(road_id))
-			throw new IllegalArgumentException(
-					"Ya existe un objeto con el id " + road_id + '.');
-
-		try {
-			if (map.validJuctionsForRoad(junctionIniId, junctionDestId)) {
-				// Cogemos el cruce de destino
-				Junction junc = map.getJunction(junctionDestId);
-				Junction ini = map.getJunction(junctionIniId);
-
-				// Creamos la nueva autopista y la añadimos al mapa y como
-				// entrante al cruce de destino
-				Road road = new Freeway(road_id, maxSpeed, length, lanes, junc, ini);
-				map.addRoad(road);
-				junc.añadirCarreteraEntrante(road);
-				ConexionCruces conJunct = new ConexionCruces(road_id, junctionDestId);
-
-				// Cosas del manu para tener el mapa de carreteras/cruces que
-				// unen completito
-				if (map.getConectionMap().containsKey(junctionIniId))
-					map.getConectionMap().get(junctionIniId).add(conJunct);
-				else {
-					List<ConexionCruces> connect = new ArrayList<ConexionCruces>();
-					connect.add(conJunct);
-					map.getConectionMap().put(junctionIniId, connect);
-				}
-			}
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException(
-					"Algo ha fallado con los cruces especificados.\n" + e.getMessage(),
-					e);
+			throw new IllegalArgumentException("Ya existe un objeto con el id " + road_id);
+		
+		// Cogemos el cruce de destino de la carretera
+		Junction dest = map.getJunction(junctionDestId);
+		Junction ini = map.getJunction(junctionIniId);
+		
+		if(dest == null || ini == null)
+			throw new InvalidParameterException("Cruce no existente.");
+		
+		// Creamos la carretera, la añadimos al mapa y al cruce de destino
+		Road road = new Freeway(road_id, maxSpeed, length, lanes, dest, ini);
+		map.addRoad(road);
+		dest.añadirCarreteraEntrante(road);
+	}
+	
+	
+	public static class NewFreewayBuilder extends NewRoadBuilder
+	{
+		protected boolean esDeEsteTipo(IniSection sec)
+		{
+			return 	sec.getValue("type").equals("lanes");
 		}
-
+		protected NewRoad concretarTipo(IniSection sec)
+		{
+			int lanes = Integer.valueOf(sec.getValue("lanes"));
+			
+			return new NewFreeway(time, id, origen, dest, roadSize, maxSpeed, lanes);
+		}
 	}
 }

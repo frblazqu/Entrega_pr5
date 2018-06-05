@@ -15,12 +15,16 @@ public class EventFactory {
 	 * Lista de constructores para todos los posibles eventos contemplados en la
 	 * simulación.
 	 */
-	private final static EventBuilder[] builder = {new NewJunction.NewJunctionBuilder(),
-			new NewRoundJunction.NewRoundJunctionBuilder(),
-			new NewVehicle.NewVehicleBuilder(), new MakeVehicleFaulty.NewVehicleFaulty(),
-			new NewBike.NewBikeBuilder(), new NewCar.NewCarBuilder(),
-			new NewPath.NewPathBuilder(), new NewFreeway.NewFreewayBuilder(),
+	private final static EventBuilder[] builder = {
+			new NewJunction.NewJunctionBuilder(),
 			new NewRoad.NewRoadBuilder(),
+			new NewVehicle.NewVehicleBuilder(), 
+			new NewRoundJunction.NewRoundJunctionBuilder(),
+			new MakeVehicleFaulty.NewVehicleFaulty(),
+			new NewBike.NewBikeBuilder(), 
+			new NewCar.NewCarBuilder(),
+			new NewPath.NewPathBuilder(), 
+			new NewFreeway.NewFreewayBuilder(),
 			new NewCrowedJunction.NewCrowedJunctionBuilder()};
 
 	/**
@@ -36,8 +40,7 @@ public class EventFactory {
 		Event event;
 
 		for (EventBuilder e : builder) {
-			// Parsea el evento con el correspondiente builder (puede lanzar
-			// IllegalArgumentException)
+			// Parsea el evento con el correspondiente builder (puede lanzar excepcion)
 			event = e.parse(s);
 
 			// Si se consigue parsear correctamente lo devuelve
@@ -45,9 +48,7 @@ public class EventFactory {
 				return event;
 		}
 
-		// Si llega aquí es porque no ha podido parsear esta sección
-		// correctamente
-		throw new IllegalArgumentException(
-				"No se ha podido parsear la sección:\n" + s.toString());
+		// Si llega aquí es porque no ha podido parsear esta sección correctamente
+		throw new IllegalArgumentException("No se ha podido parsear la sección:\n" + s.toString());
 	}
 }

@@ -54,34 +54,37 @@ public class NewRoad extends Event
 	}
 
 	public static class NewRoadBuilder implements EventBuilder {
+		
+		protected int time;
+		protected int maxSpeed;
+		protected int roadSize;
+		protected String origen;
+		protected String dest;
+		protected String id;
+		
 		public Event parse(IniSection sec) throws IllegalArgumentException 
 		{
-			if (!sec.getTag().equals("new_road")) 
+			if (!sec.getTag().equals("new_road") || !esDeEsteTipo(sec))
 				return null;
-			else 
-			{
-				try {
-					int time 	= StringParser.parseTime(sec.getValue("time"));
-					String id 	= StringParser.parseId(sec.getValue("id"));
-					String src 	= StringParser.parseId(sec.getValue("src"));
-					String dest = StringParser.parseId(sec.getValue("dest"));
-					int mSpeed 	= StringParser.parseIntValue(sec.getValue("max_speed"));
-					int l 		= StringParser.parseIntValue(sec.getValue("length"));
+		
+			time 	= StringParser.parseTime(sec.getValue("time"));
+			id		= StringParser.parseId(sec.getValue("id"));
+			origen 	= StringParser.parseId(sec.getValue("src"));
+			dest 	= StringParser.parseId(sec.getValue("dest"));
+			maxSpeed= StringParser.parseIntValue(sec.getValue("max_speed"));
+			roadSize= StringParser.parseIntValue(sec.getValue("length"));
 
-					if (sec.getValue("type") == null)
-						return new NewRoad(time, id, src, dest, l, mSpeed);
-					else if (sec.getValue("type").equals("dirt"))
-						return new NewPath(time, id, src, dest, l, mSpeed);
-					else if (sec.getValue("type").equals("lanes")) {
-						int lanes = StringParser.parseIntValue(sec.getValue("lanes"));
-						return new NewFreeway(time, id, src, dest, l, mSpeed, lanes);
-					} else
-						return null;
-				} catch (IllegalArgumentException e) {
-					throw new IllegalArgumentException(
-							"Algo ha fallado con los atributos.\n" + e.getMessage(), e);
-				}
-			}
+			return concretarTipo(sec);
+		}
+		
+		//Métodos específicos de cada tipo (sobreescribir los hijos)
+		protected boolean esDeEsteTipo(IniSection sec)
+		{
+			return sec.getValue("type") == null;
+		}
+		protected NewRoad concretarTipo(IniSection sec)
+		{
+			return new NewRoad(time, id, origen, dest, roadSize, maxSpeed);
 		}
 	}	
 }

@@ -241,11 +241,9 @@ public class ExampleMain {
 	}
 	/**
 	 * Run the simulator in batch mode.
-	 * 
-	 * @throws SimulationFailedException
-	 *             If the simulation ended abruptly to notice the cause.
+	 * @throws Exception 
 	 */
-	private static void startBatchMode() throws SimulationFailedException {
+	private static void startBatchMode() throws Exception {
 		
 		if(_inFile == null) {
 			muestraMensajeError("An events file is missing");
@@ -286,7 +284,7 @@ public class ExampleMain {
 				}
 			});
 			}catch(Exception e) {
-				muestraMensajeError(e.getMessage());
+				throw e;
 			}
 		}
 
@@ -351,7 +349,7 @@ public class ExampleMain {
 		// directory.
 		//
 		 test("src/main/resources/readStr/examples/basic/");
-		// test("src/main/resources/readStr/examples/advanced/");
+		 test("src/main/resources/readStr/examples/advanced/");
 
 		// Call start to start the simulator from command line, etc.
 		// start(args);
