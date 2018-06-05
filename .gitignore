@@ -1,9 +1,9 @@
 #Indicamos los tipos de archivos y directorios que queremos ignorar
 
-/src/main/resources/
-/target/
-/.settings/	#Directorio target con los .class
-/bin/		#Directorio de binarios
+src/main/resources/
+target/
+.settings/	#Directorio target con los .class
+bin/		#Directorio de binarios
 .classpath	#??
 .project	#??
 *.class		#Generados del .java
