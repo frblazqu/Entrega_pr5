@@ -10,16 +10,9 @@ import es.ucm.fdi.model.objects.Vehicle;
 import es.ucm.fdi.util.StringParser;
 
 public class NewVehicle extends Event {
-	private String vehicleId; // Id del nuevo vehículo a generar
-	private int maxSpeed; // Velocidad máxima del nuevo vehículo
-	private String[] itinerary; // Array de string de identificadores de los
-								// cruces por los que pasa el vehículo
-
-	public NewVehicle() {
-		vehicleId = null;
-		maxSpeed = 0;
-		itinerary = null;
-	}
+	private String vehicleId;    // Id del nuevo vehículo a generar
+	private int maxSpeed;        // Velocidad máxima del nuevo vehículo
+	private String[] itinerary;  // Ids de los cruces del itinerario
 
 	public NewVehicle(int time, String vId, int mSpeed, String[] it) {
 		super(time);
@@ -42,8 +35,7 @@ public class NewVehicle extends Event {
 
 	public void execute(RoadMap map) throws IllegalArgumentException {
 		if (map.duplicatedId(vehicleId))
-			throw new IllegalArgumentException(
-					"Ya existe un objeto con el id " + vehicleId + +'.');
+			throw new IllegalArgumentException("El id " + vehicleId + "está duplicado.");
 
 		// Si estamos aquí es porque el identificador del vehículo es válido
 

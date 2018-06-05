@@ -1,40 +1,25 @@
 package es.ucm.fdi.model.objects;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import es.ucm.fdi.ini.IniSection;
-
 /**
  * Representación y funcionalidad de un cruce en la simulación.
  * 
  * @author Francisco Javier Blázquez Martínez
- * @author Manuel Ortega Salvador
- * @version 03/05/18
+ * @version Examen final 2017-18
  */
-public class Junction extends SimulatedObject {
-	protected Map<String, ArrayDeque<Vehicle>> colas; // Pares de Ids de
-														// carreteras entrantes,
-														// colas de vehículos
-														// esperando
-	protected List<String> incomingRoadIds; // Ids de las carreteras entrantes,
-											// para acceder rápido con el
-											// semáforo.
-	protected int semaforo; // Índice dentro de IncomingRoads de la que tiene el
-							// semáforo verde
-	protected int numCarreterasEntrantes; // Número de carreteras que entran a
-											// este cruce
+public class Junction extends SimulatedObject 
+{	
+	protected Map<String, ArrayDeque<Vehicle>> colas; 
+	protected List<String> incomingRoadIds;
+	protected int numCarreterasEntrantes; 
+	protected int semaforo; 
 
-
-	/**
-	 * Constructora usual. Genera un nuevo cruce dado:
-	 * 
-	 * @param id
-	 *            Identificador del nuevo cruce a crear.
-	 */
 	public Junction(String id) {
 		super(id);
 		colas = new HashMap<>();
@@ -43,121 +28,58 @@ public class Junction extends SimulatedObject {
 		semaforo = -1;
 	}
 
-	/**
-	 * Avanza el estado del cruce en la simulación, esto es, permite avanzar a
-	 * su siguiente carretera al vehículo que más lleva esperando en la
-	 * carretera con el semáforo en verde.
-	 */
 	public void avanza() {
-		if (numCarreterasEntrantes > 0) // No es un cruce de solo inicio
+		if (numCarreterasEntrantes > 0)
 		{
-			// Primero controlar que haya alguno en verde, tenga sentido esto
 			if (semaforo == -1)
 				inicializaSemaforo();
-
-			// Avanzar el primer vehículo de la cola de la carretera en verde si
-			// lo hay
 
 			if (colaEnVerde() != null && colaEnVerde().size() > 0) {
 				colaEnVerde().pop().moverASiguienteCarretera();
 				haPasadoVehiculo();
 			}
 
-			// Actualizar el semáforo si procede
 			avanzarSemaforo();
 		}
 	}
 	protected void haPasadoVehiculo() {
-		;
+		;//Solo para los cruces avanzados
 	}
-	/**
-	 * Establece por primera vez permiso de circulación a una de las carreteras
-	 * entrantes.
-	 */
 	protected void inicializaSemaforo() {
 		semaforo = numCarreterasEntrantes - 1;
 	}
-	/**
-	 * Avanza el estado del semáforo del cruce. Cambiando de carretera en verde
-	 * si fuera necesario.
-	 */
 	protected void avanzarSemaforo() {
 		semaforo = (semaforo + 1) % numCarreterasEntrantes;
 	}
-	/**
-	 * @return Los vehículos que se encuentran esperando al final de la
-	 *         carretera con semáforo en verde.
-	 */
 	protected ArrayDeque<Vehicle> colaEnVerde() {
 		return colas.get(incomingRoadIds.get(semaforo));
 	}
-	/**
-	 * Inserta el vehículo pasado como parámetro al final de la cola de espera
-	 * de su carretera.
-	 * 
-	 * @param car
-	 *            Vehículo que pasa a esperar en la cola final de la carretera
-	 *            en la que se encuentra.
-	 */
 	public void entraVehiculo(Vehicle car) {
+		
+		if(!colas.containsKey(car.actualRoad().getId()))
+			throw new InvalidParameterException("El coche no puede entrar al cruce.");
+		
 		colas.get(car.actualRoad().getId()).addLast(car);
 		car.setVelocidadActual(0);
 	}
-	/**
-	 * Añade una carretera nueva que finaliza en el cruce actual.
-	 * 
-	 * @param road
-	 *            Carretera entrante que vamos a añadir.
-	 */
-	public void añadirCarreteraEntrante(Road road) {
+	public void añadirCarreteraEntrante(Road road) 
+	{
 		incomingRoadIds.add(road.getId());
 		colas.put(road.getId(), new ArrayDeque<>());
 		numCarreterasEntrantes++;
 
 		completarAñadirCarretera(road);
 	}
-	/**
-	 * Método para ser sobreescrito en los cruces avanzados para ejecutar sus
-	 * funciones específicas.
-	 * 
-	 * @param road
-	 *            Carretera que se añade como entrante al cruce.
-	 */
 	protected void completarAñadirCarretera(Road road) {
 		;
 	}
-
-	/**
-	 * @return "junction_report" como encabezado por defecto para los informes
-	 *         de los cruces.
-	 */
+	
 	public String getHeader() {
 		return "junction_report";
 	}
-	/**
-	 * Completa los detalles específicos de este cruce en el mapa pasado como
-	 * parámetro.
-	 * 
-	 * @param camposValor
-	 *            Mapa en el que se introducirá la información.
-	 */
 	public void fillReportDetails(Map<String, String> camposValor) {
-		/* Ha caído en desuso! */
+		camposValor.put("queues", colaCruce());
 	}
-	/**
-	 * Completa los detalles específicos de este cruce en la sección pasada como
-	 * parámetro.
-	 * 
-	 * @param sec
-	 *            Sección en la que insertar la información.
-	 */
-	public void fillSectionDetails(IniSection sec) {
-		sec.setValue("queues", colaCruce());
-	}
-	/**
-	 * @return La representación textual de las colas de espera del cruce que se
-	 *         visualiza en los informes.
-	 */
 	protected String colaCruce() {
 		StringBuilder cola = new StringBuilder();
 
@@ -177,10 +99,6 @@ public class Junction extends SimulatedObject {
 	protected String fillColaDetails() {
 		return "";
 	}
-	/**
-	 * @return La representación textual de una cola de vehículos esperando en
-	 *         el cruce.
-	 */
 	protected String vehiculosCola(int index) {
 		String vehiculos = "";
 
@@ -188,14 +106,10 @@ public class Junction extends SimulatedObject {
 			vehiculos += v.getId() + ",";
 
 		if (vehiculos.length() > 0)
-			vehiculos = vehiculos.substring(0, vehiculos.length() - 1); // Eliminamos
-																		// la
-																		// ','
-																		// final
+			vehiculos = vehiculos.substring(0, vehiculos.length() - 1); 
 
 		return vehiculos;
 	}
-
 	public void describe(Map<String, String> out) {
 		super.describe(out);
 		out.put("Green", estadoVerde());
