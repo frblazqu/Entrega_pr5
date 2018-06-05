@@ -4,14 +4,7 @@ import java.util.Map;
 import es.ucm.fdi.ini.IniSection;
 
 public class Bike extends Vehicle {
-	/**
-	 * Constructora por defecto, NO USAR SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues requiere la constructora por defecto de road.
-	 */
-	public Bike() {
-		super();
-	}
+
 	/**
 	 * {@link Vehicle#Vehicle(String, int, String[], RoadMap)}
 	 */

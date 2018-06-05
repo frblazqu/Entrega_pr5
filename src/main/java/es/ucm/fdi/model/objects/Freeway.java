@@ -7,14 +7,6 @@ public class Freeway extends Road {
 	private int lanes;
 
 	/**
-	 * Constructora por defecto, NO USAR SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Porque requiere uso de la constructora por defecto de Road.
-	 */
-	public Freeway() {
-		super();
-	}
-	/**
 	 * {@link Road#Road(String, int, int, Junction, Junction)}
 	 * 
 	 * @param lanes

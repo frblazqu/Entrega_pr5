@@ -30,22 +30,6 @@ public class Vehicle extends SimulatedObject {
 									// de la última carretera de itinerario.
 
 	/**
-	 * Constructora por defecto. NO DEBE USARSE SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues los inicializa sus atributos a parámetros no válidos
-	 *             para ser ejecutados en el simulador.
-	 */
-	public Vehicle() {
-		kilometrage = 0;
-		velActual = 0;
-		velMaxima = 0;
-		tiempoAveria = 0;
-		localizacion = 0;
-		enDestino = false;
-		itinerario = new ArrayList<>();
-		indiceItinerario = 0;
-	}
-	/**
 	 * Genera un vehículo dados los siguientes parámetros:
 	 * 
 	 * @param id

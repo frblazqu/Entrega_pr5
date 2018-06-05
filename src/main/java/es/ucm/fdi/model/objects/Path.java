@@ -4,14 +4,7 @@ import java.util.Map;
 import es.ucm.fdi.ini.IniSection;
 
 public class Path extends Road {
-	/**
-	 * Constructora por defecto, NO USAR SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Porque requiere de la constructora por defecto de road.
-	 */
-	public Path() {
-		super();
-	}
+
 	/**
 	 * {@link Road#Road(String, int, int, Junction, Junction)}
 	 */

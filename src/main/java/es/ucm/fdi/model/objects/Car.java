@@ -13,14 +13,7 @@ public class Car extends Vehicle {
 	private long seed; // Semilla de inicio del generador de números aleatorios
 	private Random random; // Generador de números aleatorios
 
-	/**
-	 * Constructora por defecto, NO DEBE USARSE SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues requiere usar la constructora por defecto de Road.
-	 */
-	public Car() {
-		super();
-	}
+
 	/**
 	 * {@link Vehicle#Vehicle(String, int, String[], RoadMap)}
 	 * 

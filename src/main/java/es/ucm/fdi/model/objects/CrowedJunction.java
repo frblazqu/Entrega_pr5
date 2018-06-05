@@ -21,14 +21,6 @@ public class CrowedJunction extends	Junction {
 								// este momento.
 
 	/**
-	 * Constructora por defecto, NO UTILIZAR SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues requiere usar la constructora por defecto de Junction.
-	 */
-	public CrowedJunction() {
-
-	}
-	/**
 	 * Constructora usual.
 	 * 
 	 * @see Junction#Junction(String)

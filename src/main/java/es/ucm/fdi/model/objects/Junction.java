@@ -28,19 +28,7 @@ public class Junction extends SimulatedObject {
 	protected int numCarreterasEntrantes; // Número de carreteras que entran a
 											// este cruce
 
-	/**
-	 * Constructora por defecto. NO DEBE USARSE SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues no inicializa el identificador ni el semáforo a un valor
-	 *             correcto.
-	 */
-	public Junction() {
-		super();
-		colas = new HashMap<>();
-		incomingRoadIds = new ArrayList<>();
-		numCarreterasEntrantes = 0;
-		semaforo = -1;
-	}
+
 	/**
 	 * Constructora usual. Genera un nuevo cruce dado:
 	 * 

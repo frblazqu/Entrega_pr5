@@ -350,11 +350,11 @@ public class ExampleMain {
 		// Call test in order to test the simulator on all examples in a
 		// directory.
 		//
-		// test("src/main/resources/readstr/examples/basic/");
-		// test("src/main/resources/readstr/examples/advanced/");
+		test("src/main/resources/readStr/examples/basic/");
+		test("src/main/resources/readStr/examples/advanced/");
 
 		// Call start to start the simulator from command line, etc.
-		start(args);
+		// start(args);
 	}
 
 	// Sólo para testeo

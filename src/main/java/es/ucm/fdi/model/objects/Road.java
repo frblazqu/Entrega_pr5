@@ -26,18 +26,7 @@ public class Road extends SimulatedObject {
 														// por su distancia al
 														// origen de manera
 														// decreciente
-	/**
-	 * Constructora por defecto, NO DEBE USARSE SIN PRECAUCIÓN.
-	 * 
-	 * @deprecated Pues inicializa los atributos de la carretera a valores no
-	 *             válidos.
-	 */
-	public Road() {
-		super();
-		longitud = 0;
-		maxVelocidad = 0;
-		vehiculos = new MultiTreeMap<>();
-	}
+
 	/**
 	 * Constructora usual. Genera una carretera dados:
 	 * 
