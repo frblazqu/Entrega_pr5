@@ -19,19 +19,15 @@ import es.ucm.fdi.util.MultiTreeMap;
 /**
  * Clase encargada del propio simulador de tráfico.
  */
-public class TrafficSimulator {
-	private static final int DEFAULT_SET_TIME = 0; // Tiempo al que inicializar
-													// el reloj
+public class TrafficSimulator 
+{
+	private static final int DEFAULT_SET_TIME = 0; 
 
-	private MultiTreeMap<Integer, Event> listaEventos; // Eventos a ejecutar
-														// (ordenados por tiempo
-														// ascendente y orden de
-														// insercción)
-	private RoadMap mapa; // Contenedor para todos los objetos de la simulación
-							// (identificaros por id único)
-	private int reloj; // Reloj que indica el paso de la simulación actual
-	private List<Listener> observadores; // Lista de observadores a los que
-											// notificar los cambios
+	private MultiTreeMap<Integer, Event> listaEventos; 
+	private List<Listener> observadores; 
+	private RoadMap mapa;
+	private int reloj; 
+	
 
 	/**
 	 * Constructora usual. Crea un simulador vacío de objetos y de eventos.
@@ -131,11 +127,12 @@ public class TrafficSimulator {
 		try {
 			ini.store(out);
 		} catch (IOException e) {
-			fireUpdateEvent(EventType.ERROR,
-					"No se ha podido almacenar el informe del tiempo " + reloj + ".\n");
+			fireUpdateEvent(EventType.ERROR,"Error en el informe del tiempo " + reloj + ".\n");
 		}
 	}
-	
+	/**
+	 * Pasa del report en mapa del objeto a formato IniSection.
+	 */
 	private IniSection seccionObjeto(int time, SimulatedObject simObject)
 	{
 		LinkedHashMap<String, String> reportMap = new LinkedHashMap<>();
@@ -159,21 +156,18 @@ public class TrafficSimulator {
 	 */
 	public void leerDatosSimulacion(InputStream inputStream) {
 		try {
-			// Cargamos todo el fichero en la variable ini (Puede lanzar
-			// IOException)
+			// Cargamos todo el fichero en la variable ini 
 			Ini ini = new Ini(inputStream);
 
 			// Parseamos uno a uno los eventos de las secciones
 			Event evento;
 
 			for (IniSection s : ini.getSections()) {
-				evento = EventFactory.buildEvent(s); // throw
-														// IllegalArgumentException()
+				evento = EventFactory.buildEvent(s); 
 				insertaEvento(evento);
 			}
 		} catch (IllegalArgumentException e) {
-			fireUpdateEvent(EventType.ERROR,
-					"Error al cargar uno de los eventos:\n" + e.getMessage());
+			fireUpdateEvent(EventType.ERROR,"Error al cargar uno de los eventos:\n" + e.getMessage());
 
 		} catch (IOException e) {
 			fireUpdateEvent(EventType.ERROR, "Error al leer el fichero de eventos.");

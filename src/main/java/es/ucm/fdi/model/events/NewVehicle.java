@@ -9,6 +9,12 @@ import es.ucm.fdi.model.objects.RoadMap;
 import es.ucm.fdi.model.objects.Vehicle;
 import es.ucm.fdi.util.StringParser;
 
+/**
+ * Clase para los de eventos de creación de vehículos en el simulador.
+ * 
+ * @author Francisco Javier Blázquez
+ * @version Examen final 2017-18
+ */
 public class NewVehicle extends Event {
 	protected String vehicleId;    // Id del nuevo vehículo a generar
 	protected int maxSpeed;        // Velocidad máxima del nuevo vehículo

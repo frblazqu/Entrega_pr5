@@ -10,8 +10,7 @@ import es.ucm.fdi.ini.IniSection;
  * tránsito en carreteras con una cola de vehículos grande.
  * 
  * @author Francisco Javier Blázquez Martínez
- * @author Manuel Ortega Salvador
- * @version 03/05/18
+ * @version Examen final 2017-18
  */
 public class CrowedJunction extends	Junction {
 	

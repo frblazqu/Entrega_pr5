@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import es.ucm.fdi.extra.graphlayout.Dot;
 import es.ucm.fdi.extra.graphlayout.Edge;
 import es.ucm.fdi.extra.graphlayout.Graph;
@@ -24,11 +24,17 @@ import es.ucm.fdi.extra.texteditor.TextEditor;
 import es.ucm.fdi.model.Describable;
 import es.ucm.fdi.model.TrafficSimulator;
 import es.ucm.fdi.model.TrafficSimulator.UpdateEvent;
-import es.ucm.fdi.model.events.Event;
 import es.ucm.fdi.model.objects.Junction;
 import es.ucm.fdi.model.objects.Road;
 import es.ucm.fdi.model.objects.Vehicle;
 
+/**
+ * Clase encargada de mostrar la simulación con interfaz gráfica.
+ * 
+ * @author Francisco Javier Blázquez Martínez
+ * @version Examen final 2017-18
+ */
+@SuppressWarnings("serial")
 public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 
 	private JFileChooser fc;
@@ -47,7 +53,6 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 	private JTextField timeText;
 
 	private Controller control;
-	
 	private Stepper stepper;
 
 	private Action[] disabledWhileSimulatingActions;
@@ -71,11 +76,10 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		pack();
 		setVisible(true);
 
-		mainPanel.setDividerLocation(.3); // 30% de espacio al panel superior
-		mainPanel.setResizeWeight(.3); // A pesar de que cambiemos la ventana
-		bottomSplit.setDividerLocation(.5); // 50% de espacio para tablas en el
-											// panel inferior
-		bottomSplit.setResizeWeight(0.5); // A pesar de que cambiemos la ventana
+		mainPanel.setDividerLocation(.3); 	// 30% de espacio al panel superior
+		mainPanel.setResizeWeight(.3); 		// A pesar de que cambiemos la ventana
+		bottomSplit.setDividerLocation(.5); // 50% de espacio para tablas en panel inferior
+		bottomSplit.setResizeWeight(0.5); 	// A pesar de que cambiemos la ventana
 
 		control.simulador().addSimulatorListener(this);
 		
@@ -182,7 +186,6 @@ public class SimWindow extends JFrame implements TrafficSimulator.Listener {
 		bar.add(salir);
 		add(bar, BorderLayout.NORTH);
 
-		
 		
 		// add actions to menubar, and bar to window
 		JMenu file = new JMenu("File");

@@ -10,7 +10,8 @@ import es.ucm.fdi.util.StringParser;
  * evento del simulador de añadir un nuevo cruce circular avanzado, incluyendo
  * la propia construccción de este tipo de eventos.
  * 
- * @author Francisco Javier Blázquez
+ * @author Francisco Javier Blázquez Martínez
+ * @version Examen final 2017-18
  */
 public class NewRoundJunction extends NewJunction {
 	private int minDurationVerde;
